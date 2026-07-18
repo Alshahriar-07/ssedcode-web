@@ -1,8 +1,10 @@
 /* ============================================================
    Seed Code CLI Simulator — script.js
-   A complete fake terminal: boot sequence, command engine,
-   natural-language questions, history, tab completion, themes,
-   matrix mode, neofetch, scripted demo. 100% offline.
+   A complete terminal: boot sequence, command engine, history,
+   tab completion, themes, matrix mode, neofetch, scripted demo.
+   Natural-language questions go to the Seed Code Assistant via
+   the /cli backend (see backend/server.js); built-in offline
+   answers remain as a fallback when the backend is unreachable.
    ============================================================ */
 
 (function () {
@@ -657,8 +659,168 @@
   ];
 
   /* ============================================================
-     Dispatcher
+     AI assistant — talks ONLY to the backend (which holds the
+     OpenRouter key). History lives in sessionStorage for the
+     current browser session; no accounts, no database.
+     The QA list above remains as an offline fallback.
+
+     Endpoint auto-detection (single, centralized config):
+       · localhost / 127.0.0.1  → http://localhost:8787/api/chat
+         (python -m http.server 8000 + node backend/server.js)
+       · any deployed domain    → /api/chat  (Vercel function)
+     No manual edits needed between dev and production.
      ============================================================ */
+  const AI_UNAVAILABLE = "The Seed Code Assistant is temporarily unavailable. Please try again in a few moments.";
+  const AI = {
+    // ── all of this initializes at script load, NOT lazily ──
+    endpoint: (() => {
+      const h = location.hostname;
+      const local = h === "localhost" || h === "127.0.0.1" || h === "[::1]";
+      // Dev: unless the page is already served BY the backend (:8787),
+      // the API lives on its own port. Prod: same-origin serverless fn.
+      if (local && location.port !== "8787") return "http://localhost:8787/api/chat";
+      return "/api/chat";
+    })(),
+    history: (() => {
+      try { return JSON.parse(sessionStorage.getItem("sc-sim-chat") || "[]"); }
+      catch (e) { return []; }
+    })(),
+    ready: false,          // flipped by the startup warm-up (or first reply)
+    warming: false,
+  };
+
+  /* ---------- startup warm-up ----------
+     Runs immediately when the simulator loads: pings the backend
+     (GET /api/chat = health) so the connection — and on Vercel the
+     serverless function — is warm before the first prompt. Retries
+     silently in the background with backoff; never blocks the UI,
+     and askAI() never waits for it (a prompt always POSTs at once). */
+  function warmUpBackend(attempt = 0) {
+    if (AI.ready || AI.warming) return;
+    AI.warming = true;
+    fetch(AI.endpoint, { method: "GET" })
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error("http " + res.status))))
+      .then((info) => {
+        AI.ready = true;
+        AI.warming = false;
+        console.log("[seedcode-sim] backend ready", { url: AI.endpoint, info });
+      })
+      .catch((e) => {
+        AI.warming = false;
+        console.warn(`[seedcode-sim] backend warm-up attempt ${attempt + 1} failed`, { url: AI.endpoint, error: String(e) });
+        setTimeout(() => warmUpBackend(attempt + 1), Math.min(30_000, 2000 * 2 ** attempt));
+      });
+  }
+  warmUpBackend();
+
+  async function askAI(prompt) {
+    const messages = [...AI.history, { role: "user", content: prompt }].slice(-20);
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 35_000);
+    try {
+      let res;
+      try {
+        res = await fetch(AI.endpoint, {
+          method: "POST",
+          signal: ctrl.signal,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages }),
+        });
+      } catch (netErr) {
+        // network-level failure (backend down, CORS, DNS, abort)
+        console.error("[seedcode-sim] network error", { url: AI.endpoint, error: String(netErr) });
+        throw netErr;
+      }
+      if (!res.ok) {
+        const body = await res.text().catch(() => "");
+        console.error("[seedcode-sim] /api/chat failed", { url: AI.endpoint, status: res.status, body: body.slice(0, 500) });
+        throw new Error("http " + res.status);
+      }
+      const data = await res.json();
+      if (typeof data.reply !== "string" || !data.reply.trim()) {
+        console.error("[seedcode-sim] bad reply shape", { url: AI.endpoint, data });
+        throw new Error("bad reply");
+      }
+      AI.history = [...messages, { role: "assistant", content: data.reply }].slice(-20);
+      try { sessionStorage.setItem("sc-sim-chat", JSON.stringify(AI.history)); } catch (e) { /* full/blocked */ }
+      AI.ready = true;
+      return data.reply;
+    } catch (e) {
+      AI.ready = false;
+      warmUpBackend();                       // recover silently in the background
+      throw e;
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  /* spinner that runs while a promise is in flight */
+  async function withSpinner(label, promise) {
+    const frames = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
+    let i = 0;
+    const div = block(`<span class="spinner">${frames[0]}</span> <span class="c-dim">${esc(label)}</span>`);
+    const iv = setInterval(() => {
+      i = (i + 1) % frames.length;
+      div.innerHTML = `<span class="spinner">${frames[i]}</span> <span class="c-dim">${esc(label)}</span>`;
+    }, 66);
+    try { return await promise; }
+    finally { clearInterval(iv); div.remove(); }
+  }
+
+  /* stream plain text word-by-word via textContent — AI output is
+     never parsed as markup tokens or HTML */
+  async function streamText(text) {
+    const div = block("");
+    const words = text.split(/(\s+)/);
+    let acc = "";
+    for (const wd of words) {
+      acc += wd;
+      div.textContent = acc;
+      scrollDown();
+      if (wd.trim()) await wait(14);
+    }
+    return div;
+  }
+
+  /* offline fallback: unavailable notice + canned answer if we have one */
+  async function offlineFallback(lower) {
+    printRaw(`{y:⚠ ${esc(AI_UNAVAILABLE)}}`);
+    for (const qa of QA) {
+      if (qa.match.test(lower)) {
+        blank();
+        printRaw(`{d:(offline answer)}`);
+        await qa.answer(lower);
+        return;
+      }
+    }
+    printRaw(`{d:Meanwhile, the built-in commands still work — try }{g:help}{d:, }{g:features}{d:, or }{g:demo}{d:.}`);
+  }
+
+  /* ============================================================
+     Dispatcher — routing rules:
+       1. Exact built-in command (help, demo, matrix, …) → run it.
+          These are NEVER sent to the AI.
+       2. CLI-syntax-looking input that isn't a command (flags
+          like "--foo", or an obvious typo of a known command,
+          e.g. "hlep") → "Command not found" + did-you-mean.
+       3. Everything else — normal human language ("hi", "how
+          are you", "explain recursion") → POST /api/chat.
+     ============================================================ */
+
+  /* Strict typo detection: only trap single words that are clearly a
+     mistyped command (≤1 edit from one, ≥4 chars, not a real word we
+     should chat about). "hlep" → help; "hi"/"hello"/"ok" → AI. */
+  function commandTypo(word) {
+    if (word.length < 4) return null;                       // "hi", "ok" … → AI
+    const names = Object.keys(COMMANDS).filter((n) => COMMANDS[n].primary && !n.startsWith("-"));
+    let best = null;
+    for (const n of names) {
+      const d = levenshtein(word, n);
+      if (d === 1 && (!best || n.length > best.length)) best = n;
+    }
+    return best;
+  }
+
   async function run(raw) {
     const input = raw.trim();
     if (!input) return;
@@ -667,30 +829,33 @@
     const args = rest.join(" ");
     const lower = input.toLowerCase();
 
-    // exact command?
+    // 1. exact built-in command → never the AI
     if (COMMANDS[name.toLowerCase()]) {
       await COMMANDS[name.toLowerCase()].fn(args);
       return;
     }
-    // natural question?
-    for (const qa of QA) {
-      if (qa.match.test(lower)) {
-        await think("Thinking…", 650);
-        await qa.answer(lower);
+
+    // 2. actual invalid CLI syntax only: unknown flags, or a clear typo
+    if (name.startsWith("-")) {
+      printRaw(`{r:✗ Unknown flag:} {w:${esc(name)}} {d:— try }{g:help}{d: or }{g:--version}`);
+      return;
+    }
+    if (rest.length === 0) {
+      const typo = commandTypo(name.toLowerCase());
+      if (typo) {
+        printRaw(`{r:✗ Command not found:} {w:${esc(name)}}`);
+        printRaw(`{d:Did you mean:} {g:${typo}} {d:— or just ask me a question.}`);
         return;
       }
     }
-    // unknown → suggestions
-    const names = Object.keys(COMMANDS);
-    const close = names
-      .map((n) => ({ n, d: levenshtein(name.toLowerCase(), n) }))
-      .sort((a, b) => a.d - b.d)
-      .filter((x) => x.d <= 3)
-      .slice(0, 3)
-      .map((x) => x.n);
-    printRaw(`{r:✗ Command not found:} {w:${esc(name)}}`);
-    const sugg = close.length ? close : ["help", "features", "about"];
-    printRaw(`{d:Did you mean:} ${sugg.map((s) => `{g:(${s})`.concat("}")).join(" ")}`);
+
+    // 3. everything else is conversation → the Seed Code Assistant
+    try {
+      const reply = await withSpinner("Thinking…", askAI(input));
+      await streamText(reply);
+    } catch (e) {
+      await offlineFallback(lower);
+    }
   }
 
   function levenshtein(a, b) {

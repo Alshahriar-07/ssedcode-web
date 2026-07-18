@@ -1,11 +1,11 @@
 /* ============================================================
    Seed Code CLI — main.js · cinematic engine
    ------------------------------------------------------------
-   · Intro sequence (home, once/session, skippable)
+   · Splash screen → intro sequence (home, once/session, skippable)
    · Cinematic page transitions (wipe / slide / circle variants)
    · Lenis smooth scrolling + GSAP ScrollTrigger (CDN, guarded —
      everything degrades to native behavior if they fail to load)
-   · Mouse spotlight · canvas particles · magnetic buttons
+   · Mouse spotlight · magnetic buttons
    · 3D tilt + pointer glow · ripple · parallax
    · Scroll reveal / stagger / counters · scripted terminal
    · Navbar state · mobile nav · copy buttons · docs sidebar
@@ -21,32 +21,42 @@
   const desktop = window.innerWidth >= 900;
 
   /* ============================================================
-     Lenis smooth scrolling (guarded)
+     Motion libraries — Lenis + GSAP are lazy-loaded after first
+     paint (see loadMotionLibs at the bottom) so they never block
+     startup. Until they land: native scrolling + CSS reveals.
      ============================================================ */
   let lenis = null;
-  if (motionOK && desktop && typeof window.Lenis === "function") {
-    lenis = new window.Lenis({ lerp: 0.11, wheelMultiplier: 1, smoothWheel: true });
-    const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
-    requestAnimationFrame(raf);
-  } else {
-    document.documentElement.classList.add("no-lenis");
+  let gsapOK = false;
+  document.documentElement.classList.add("no-lenis");
+
+  function initMotionLibs() {
+    if (motionOK && desktop && typeof window.Lenis === "function") {
+      document.documentElement.classList.remove("no-lenis");
+      lenis = new window.Lenis({ lerp: 0.11, wheelMultiplier: 1, smoothWheel: true });
+      const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
+      requestAnimationFrame(raf);
+    }
+    gsapOK = motionOK && window.gsap && window.ScrollTrigger;
+    if (gsapOK) {
+      window.gsap.registerPlugin(window.ScrollTrigger);
+      if (lenis) lenis.on("scroll", window.ScrollTrigger.update);
+    }
+    initParallax();
+    if (gsapOK) initGsapReveals();
   }
 
   /* ============================================================
-     GSAP + ScrollTrigger (guarded)
-     ============================================================ */
-  const gsapOK = motionOK && window.gsap && window.ScrollTrigger;
-  if (gsapOK) {
-    window.gsap.registerPlugin(window.ScrollTrigger);
-    if (lenis) lenis.on("scroll", window.ScrollTrigger.update);
-  }
-
-  /* ============================================================
-     Intro sequence — AI boot (home only, once per session)
-     black → logo+sheen → typed name → boot diagnostics →
+     Splash + intro sequence (home only, once per session)
+     splash: CSS-animated from first paint (see inline head CSS);
+     JS only cycles the status text and ends it ~1.3s after
+     navigation start, then:
+     intro: black → logo+sheen → typed name → boot diagnostics →
      loading % → glitch burst → camera zoom → UI builds itself
+     Repeat visits: the inline head script tags <html>.sc-seen so
+     both are display:none before paint — here we just remove them.
      ============================================================ */
   const intro = document.querySelector(".intro");
+  const splash = document.querySelector(".splash");
   if (intro) {
     const seen = sessionStorage.getItem("sc-intro");
     const nameEl = intro.querySelector(".intro-name-text");
@@ -64,6 +74,7 @@
       if (finished) return;
       finished = true;
       sessionStorage.setItem("sc-intro", "1");
+      if (splash) { splash.classList.add("done"); setTimeout(() => splash.remove(), 800); }
       const close = () => {
         intro.classList.add("done");
         reveal();
@@ -77,6 +88,7 @@
     };
 
     if (seen || !motionOK) {
+      splash?.remove();
       intro.remove();
       document.querySelectorAll(".build-in").forEach((el) => el.classList.add("built"));
     } else {
@@ -92,7 +104,25 @@
         ["ok", "✓ ", "terminal renderer initialized", 160],
       ];
 
-      (async () => {
+      // splash: already animating via CSS since first paint — JS only
+      // cycles the status text and hands off ~1.3s after nav start.
+      const runSplash = async () => {
+        if (!splash) return;
+        const statusEl = splash.querySelector(".splash-status-text");
+        const elapsed = performance.now();                 // time already on screen
+        const remaining = Math.max(0, 1300 - elapsed);
+        const step = remaining / 3;
+        for (const s of ["Loading components...", "Preparing interface...", "Ready."]) {
+          if (finished) return;
+          await wait(step);
+          if (statusEl) statusEl.textContent = s;
+        }
+        splash.classList.add("done");                      // soft blur hand-off, intro already beneath
+        setTimeout(() => splash.remove(), 700);
+        await wait(200);
+      };
+
+      const runIntro = async () => {
         await wait(380);                                   // black screen beat
         intro.classList.add("s1");                         // logo + metallic sheen
         await wait(900);
@@ -130,13 +160,19 @@
         pct.textContent = "100%";
         await wait(300);
         finish();                                          // glitch → zoom reveal
+      };
+
+      (async () => {
+        await runSplash();                                 // splash → intro → home
+        if (!finished) await runIntro();
       })();
 
       intro.querySelector(".intro-skip")?.addEventListener("click", () => finish(true));
       document.addEventListener("keydown", (e) => { if (e.key === "Escape") finish(true); }, { once: true });
-      setTimeout(() => finish(true), 5600);                // hard cap ~5s
+      setTimeout(() => finish(true), 7000);                // hard cap: splash ~1.3s + intro ~5s
     }
   } else {
+    splash?.remove();
     document.querySelectorAll(".build-in").forEach((el) => el.classList.add("built"));
   }
 
@@ -240,56 +276,6 @@
   }
 
   /* ============================================================
-     Canvas particles — 2D fallback, skipped when Three.js runs
-     ============================================================ */
-  const canvas = document.querySelector(".bg-particles");
-  if (canvas && motionOK && !window.__SC_THREE) {
-    const ctx = canvas.getContext("2d");
-    let particles = [], w = 0, h = 0, raf = 0;
-
-    const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      w = window.innerWidth; h = window.innerHeight;
-      canvas.width = w * dpr; canvas.height = h * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.min(Math.round((w * h) / 24000), desktop ? 72 : 30);
-      particles = Array.from({ length: count }, () => ({
-        x: Math.random() * w, y: Math.random() * h,
-        r: 0.6 + Math.random() * 1.5,
-        vx: (Math.random() - 0.5) * 0.16,
-        vy: -0.04 - Math.random() * 0.2,
-        a: 0.1 + Math.random() * 0.3,
-        green: Math.random() < 0.28,
-        phase: Math.random() * Math.PI * 2,
-      }));
-    };
-
-    const tick = (t) => {
-      ctx.clearRect(0, 0, w, h);
-      for (const p of particles) {
-        p.x += p.vx; p.y += p.vy;
-        if (p.y < -4) { p.y = h + 4; p.x = Math.random() * w; }
-        if (p.x < -4) p.x = w + 4;
-        if (p.x > w + 4) p.x = -4;
-        ctx.globalAlpha = p.a * (0.65 + 0.35 * Math.sin(t / 1500 + p.phase));
-        ctx.fillStyle = p.green ? "#22C55E" : "#FAFAFA";
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      raf = requestAnimationFrame(tick);
-    };
-
-    resize();
-    window.addEventListener("resize", resize, { passive: true });
-    raf = requestAnimationFrame(tick);
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden) { cancelAnimationFrame(raf); raf = 0; }
-      else if (!raf) raf = requestAnimationFrame(tick);
-    });
-  }
-
-  /* ============================================================
      Magnetic buttons
      ============================================================ */
   if (motionOK && finePointer) {
@@ -353,9 +339,11 @@
 
   /* ============================================================
      Parallax — GSAP if available, else rAF fallback
+     (called from initMotionLibs once libraries have loaded)
      ============================================================ */
-  const parallaxEls = document.querySelectorAll("[data-parallax]");
-  if (parallaxEls.length && motionOK && desktop) {
+  function initParallax() {
+    const parallaxEls = document.querySelectorAll("[data-parallax]");
+    if (!parallaxEls.length || !motionOK || !desktop) return;
     if (gsapOK) {
       parallaxEls.forEach((el) => {
         const speed = parseFloat(el.getAttribute("data-parallax")) || 0.15;
@@ -416,8 +404,9 @@
 
   /* ============================================================
      GSAP char-level headline reveals + pinned sections
+     (called from initMotionLibs once GSAP has loaded)
      ============================================================ */
-  if (gsapOK) {
+  function initGsapReveals() {
     // Character stagger on [data-chars] headlines
     document.querySelectorAll("[data-chars]").forEach((el) => {
       const split = [];
@@ -880,4 +869,29 @@
     }, { rootMargin: "-15% 0px -70% 0px" });
     sections.forEach((s) => io.observe(s));
   }
+
+  /* ============================================================
+     Lazy-load motion libraries (Lenis + GSAP) after first paint —
+     they enhance scrolling/reveals but must never block startup.
+     Waits for idle time (or 1.2s), then injects the CDN scripts
+     and wires everything up via initMotionLibs().
+     ============================================================ */
+  function loadMotionLibs() {
+    if (!motionOK) return;                 // reduced motion: skip entirely
+    const inject = (src) => new Promise((resolve) => {
+      const s = document.createElement("script");
+      s.src = src;
+      s.onload = resolve;
+      s.onerror = resolve;                 // offline → graceful CSS-only fallback
+      document.head.appendChild(s);
+    });
+    Promise.all([
+      inject("https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"),
+      // ScrollTrigger must execute after GSAP core → chained
+      inject("https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js")
+        .then(() => inject("https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js")),
+    ]).then(initMotionLibs);
+  }
+  if ("requestIdleCallback" in window) requestIdleCallback(loadMotionLibs, { timeout: 1200 });
+  else setTimeout(loadMotionLibs, 350);
 })();

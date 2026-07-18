@@ -4,7 +4,8 @@ Official multi-page website for Seed Code CLI, the beautiful AI coding assistant
 for the terminal. Designed & developed by **Eagox Studio** · Creator —
 **Al Shahriar Sowan** (https://alshahriarsayon.vercel.app/).
 
-A desktop-first cinematic experience: AI boot intro, Three.js WebGL background,
+A desktop-first cinematic experience: splash screen + AI boot intro, a quiet
+layered background (subtle grid, soft radial lighting, vignette, film grain),
 GSAP character-level animation, cinematic page transitions, custom cursor, and a
 fully scripted interactive terminal.
 
@@ -27,8 +28,7 @@ Seedcode-cli.io/
 ├── terms.html        # MIT terms
 ├── 404.html          # Glitch 404
 ├── css/style.css     # Design system + motion layer
-├── js/main.js        # Cinematic engine (intro, transitions, GSAP, cursor, terminal…)
-├── js/three-bg.js    # Three.js particle universe + network lines + camera
+├── js/main.js        # Cinematic engine (splash, intro, transitions, GSAP, cursor, terminal…)
 ├── scripts/build-pages.py  # Page generator — edit content here, then re-run
 ├── img/              # seedcode.ico (brand — do not replace), logo.svg/png
 ├── Files/SeedCodeSetup.exe # Windows installer (~22 MB)
@@ -51,10 +51,10 @@ of truth for anything shared.
 
 - **Lenis** — smooth scrolling (CDN, desktop only)
 - **GSAP + ScrollTrigger** — char/word reveals, blur dissolves, pinned scrub
-- **Three.js** — 700-particle field, network lines, fog, mouse-parallax camera
+- Background is pure CSS — subtle terminal grid, soft radial green lighting,
+  gentle vignette, and low-opacity noise. No particles, no WebGL.
 - All CDN libraries are *guarded*: if any fails to load, the site falls back to
-  native scrolling, CSS reveals, and a 2D canvas particle field. Everything
-  honors `prefers-reduced-motion`.
+  native scrolling and CSS reveals. Everything honors `prefers-reduced-motion`.
 
 ## Local preview
 
@@ -62,8 +62,8 @@ of truth for anything shared.
 python -m http.server 8080 --directory D:/Seedcode-cli.io
 ```
 
-Note: the intro plays once per browser session (sessionStorage key `sc-intro`);
-clear it or use a fresh tab to replay.
+Note: the splash + intro play once per browser session (sessionStorage key
+`sc-intro`); clear it or use a fresh tab to replay.
 
 ## Deployment
 

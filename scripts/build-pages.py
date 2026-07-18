@@ -12,6 +12,48 @@ PF = "https://alshahriarsayon.vercel.app/"
 MEGA = "https://mega.nz/file/pIU0HaJB#nX8HW3f6hBtan1nHuwvzaWujChjtpw8eA6zYFH0NZRQ"
 
 GH_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>'
+
+# Critical inline CSS for the splash — a trimmed copy of the .splash rules in
+# css/style.css so the logo animation paints immediately, before the external
+# stylesheet arrives. Keep in sync with css/style.css.
+SPLASH_CRITICAL_CSS = (
+    # no-flash base color goes on body, NOT html: a background on <html> stops
+    # body's background propagating to the canvas, which makes body's own
+    # opaque background paint OVER the z-index:-1 .bg-layers (grid/lighting).
+    "body{background:#09090B}"
+    ".splash{position:fixed;inset:0;z-index:520;background:#09090B;display:flex;align-items:center;"
+    "justify-content:center;transition:opacity .6s cubic-bezier(.83,0,.17,1),visibility .6s,filter .6s cubic-bezier(.83,0,.17,1)}"
+    ".splash.done{opacity:0;visibility:hidden;pointer-events:none;filter:blur(10px)}"
+    ".splash-stage{position:relative;text-align:center}"
+    ".splash-glow{position:absolute;top:56px;left:50%;width:340px;height:340px;border-radius:50%;"
+    "transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(34,197,94,.16) 0%,rgba(34,197,94,.05) 45%,transparent 70%);"
+    "filter:blur(24px);animation:splash-fade .9s cubic-bezier(.22,1,.36,1) .1s both}"
+    ".splash-logo{position:relative;width:112px;height:112px;border-radius:26px;"
+    "filter:drop-shadow(0 0 40px rgba(34,197,94,.35));"
+    "animation:splash-logo-in .65s cubic-bezier(.22,1,.36,1) both,splash-float 3s ease-in-out .7s infinite}"
+    "@keyframes splash-logo-in{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}"
+    "@keyframes splash-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}"
+    "@keyframes splash-fade{from{opacity:0}to{opacity:1}}"
+    "@keyframes splash-rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}"
+    ".splash-name{font-family:'Space Grotesk',Inter,sans-serif;font-size:1.55rem;font-weight:700;color:#FAFAFA;"
+    "letter-spacing:-.02em;margin-top:24px;animation:splash-rise .55s cubic-bezier(.22,1,.36,1) .15s both}"
+    ".splash-tag{font-family:'JetBrains Mono',monospace;font-size:.82rem;color:#A1A1AA;margin-top:8px;"
+    "letter-spacing:.02em;animation:splash-rise .55s cubic-bezier(.22,1,.36,1) .25s both}"
+    ".splash-status{display:inline-flex;align-items:center;gap:9px;margin-top:30px;min-height:1.4em;"
+    "font-family:'JetBrains Mono',monospace;font-size:.74rem;color:#A1A1AA;"
+    "animation:splash-fade .5s cubic-bezier(.22,1,.36,1) .35s both}"
+    ".splash-spinner{width:11px;height:11px;border-radius:50%;flex:none;border:1.5px solid #3F3F46;"
+    "border-top-color:#22C55E;animation:splash-spin .8s linear infinite}"
+    "@keyframes splash-spin{to{transform:rotate(360deg)}}"
+    "html.sc-seen .splash,html.sc-seen .intro{display:none}"
+    "@media (prefers-reduced-motion:reduce){.splash{display:none}}"
+)
+
+# Inline head script: on repeat visits, tag <html> before first paint so the
+# splash and intro are display:none instantly — no flash, no JS wait.
+SEEN_GATE_JS = (
+    "try{if(sessionStorage.getItem('sc-intro'))document.documentElement.classList.add('sc-seen')}catch(e){}"
+)
 DL_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>'
 COPY_BTN = '''<button class="copy-btn" data-copy="{cmd}" aria-label="Copy command"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span class="copy-label">Copy</span></button>'''
 
@@ -33,10 +75,31 @@ def nav_html():
     return "\n".join(items)
 
 
-def shell(page, title, desc, body, *, transition="wipe", enter="up", extra_head="", bg_three=True, keywords=""):
+def shell(page, title, desc, body, *, transition="wipe", enter="up", extra_head="", keywords=""):
     nav = nav_html()
     kw = keywords or "Seed Code CLI, seedcode cli, AI CLI, terminal AI assistant, AI coding assistant, OpenRouter CLI, Ollama CLI, developer AI tools"
-    three_canvas = '<canvas class="bg-three"></canvas>\n    ' if bg_three else ""
+    home = page == "index.html"
+    # Home: preload the splash logo, inline the splash-critical CSS, and gate
+    # repeat visits before first paint. Order matters: gate script first.
+    startup_head = (
+        f'  <script>{SEEN_GATE_JS}</script>\n'
+        f'  <link rel="preload" href="img/logo.svg" as="image" type="image/svg+xml">\n'
+        f'  <style>{SPLASH_CRITICAL_CSS}</style>\n'
+    ) if home else ""
+    # Splash lives directly under <body> — NOT inside <main class="page-enter">,
+    # whose enter animation (opacity/scale) would break position:fixed and hide
+    # the splash during the first frames.
+    splash_html = ("""  <div class="splash" aria-hidden="true">
+    <div class="splash-stage">
+      <span class="splash-glow"></span>
+      <img src="img/logo.svg" alt="" class="splash-logo" width="112" height="112">
+      <div class="splash-name">Seed Code</div>
+      <div class="splash-tag">Plant ideas. Grow code.</div>
+      <div class="splash-status"><span class="splash-spinner"></span><span class="splash-status-text">Initializing...</span></div>
+    </div>
+  </div>
+
+""") if home else ""
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,7 +114,7 @@ def shell(page, title, desc, body, *, transition="wipe", enter="up", extra_head=
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#09090B">
   <link rel="canonical" href="{SITE}/{'' if page == 'index.html' else page}">
-
+{startup_head}
   <link rel="icon" href="img/seedcode.ico" sizes="any">
   <link rel="icon" type="image/svg+xml" href="img/logo.svg">
   <link rel="apple-touch-icon" href="img/logo.png">
@@ -70,11 +133,12 @@ def shell(page, title, desc, body, *, transition="wipe", enter="up", extra_head=
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"></noscript>
   <link rel="stylesheet" href="css/style.css">
 {extra_head}</head>
 <body data-transition="{transition}" data-enter="{enter}">
-  <a class="skip-link" href="#main">Skip to content</a>
+{splash_html}  <a class="skip-link" href="#main">Skip to content</a>
 
   <div class="scroll-progress" aria-hidden="true"></div>
 
@@ -82,9 +146,6 @@ def shell(page, title, desc, body, *, transition="wipe", enter="up", extra_head=
 
   <div class="bg-layers" aria-hidden="true">
     <div class="bg-spotlight"></div>
-    <div class="bg-orb bg-orb-1"></div>
-    <div class="bg-orb bg-orb-2"></div>
-    {three_canvas}<canvas class="bg-particles"></canvas>
     <div class="bg-noise"></div>
   </div>
 
@@ -152,11 +213,7 @@ def shell(page, title, desc, body, *, transition="wipe", enter="up", extra_head=
     <span class="cli-fab-icon">🖥</span> Live CLI
   </a>
 
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js" defer></script>
-  <script src="js/three-bg.js" defer></script>
+  <!-- Motion libraries (Lenis, GSAP) are lazy-loaded by main.js after first paint -->
   <script src="js/main.js" defer></script>
 </body>
 </html>
@@ -194,12 +251,7 @@ PAGES["index.html"] = dict(
   }
   </script>
 """,
-    body=f"""    <!-- Splash screen (before intro, once per session) -->
-    <div class="splash" aria-hidden="true">
-      <img src="img/seedcode.ico" alt="" width="112" height="112">
-    </div>
-
-    <!-- Intro boot sequence -->
+    body=f"""    <!-- Intro boot sequence (splash is injected at body level by shell()) -->
     <div class="intro" aria-hidden="true">
       <div class="intro-stage">
         <span class="intro-logo-wrap"><img src="img/seedcode.ico" alt="" class="intro-logo" width="92" height="92"></span>
@@ -244,7 +296,7 @@ PAGES["index.html"] = dict(
             <div class="terminal-body" data-minisim role="img" aria-label="Live mini simulator automatically typing Seed Code CLI commands and answers"></div>
           </div>
           <div class="term-continue">
-            <a href="cli/" class="btn btn-secondary btn-block" data-magnetic>👉 Continue in the Full CLI Simulator</a>
+            <a href="cli/" class="btn btn-secondary btn-block" data-magnetic>Continue in the Full CLI Simulator</a>
           </div>
         </div>
       </div>
@@ -1111,7 +1163,6 @@ def main():
             transition=cfg.get("transition", "wipe"),
             enter=cfg.get("enter", "up"),
             extra_head=cfg.get("extra_head", ""),
-            bg_three=cfg.get("bg_three", True),
         )
         (ROOT / page).write_text(html, encoding="utf-8")
         print(f"wrote {page} ({len(html)} bytes)")

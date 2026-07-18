@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Changelog & Roadmap — Seed Code CLI</title>
+  <meta name="description" content="Seed Code CLI version history and roadmap: what shipped in v1.0.0 and what's coming — plugins, MCP, voice, memory, desktop app, and agent mode.">
+  <meta name="keywords" content="Seed Code CLI, seedcode cli, AI CLI, terminal AI assistant, AI coding assistant, OpenRouter CLI, Ollama CLI, developer AI tools">
+  <meta name="author" content="Al Shahriar Sowan">
+  <meta name="publisher" content="Eagox Studio">
+  <link rel="author" href="https://alshahriarsayon.vercel.app/">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#09090B">
+  <link rel="canonical" href="https://seedcode-cli.vercel.app/changelog.html">
+
+  <link rel="icon" href="img/seedcode.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="img/logo.svg">
+  <link rel="apple-touch-icon" href="img/logo.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Seed Code CLI">
+  <meta property="og:title" content="Changelog & Roadmap — Seed Code CLI">
+  <meta property="og:description" content="Seed Code CLI version history and roadmap: what shipped in v1.0.0 and what's coming — plugins, MCP, voice, memory, desktop app, and agent mode.">
+  <meta property="og:url" content="https://seedcode-cli.vercel.app/changelog.html">
+  <meta property="og:image" content="https://seedcode-cli.vercel.app/img/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Changelog & Roadmap — Seed Code CLI">
+  <meta name="twitter:description" content="Seed Code CLI version history and roadmap: what shipped in v1.0.0 and what's coming — plugins, MCP, voice, memory, desktop app, and agent mode.">
+  <meta name="twitter:image" content="https://seedcode-cli.vercel.app/img/logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-transition="slide" data-enter="blur">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <div class="pt-overlay" aria-hidden="true"><div class="pt-b"></div><div class="pt-a"></div></div>
+
+  <div class="bg-layers" aria-hidden="true">
+    <div class="bg-spotlight"></div>
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+    <canvas class="bg-three"></canvas>
+    <canvas class="bg-particles"></canvas>
+    <div class="bg-noise"></div>
+  </div>
+
+  <header class="nav-wrap">
+    <nav class="nav container" aria-label="Main navigation">
+      <a href="index.html" class="logo" aria-label="Seed Code CLI home">
+        <img src="img/seedcode.ico" alt="" class="logo-img" width="26" height="26">
+        Seed&nbsp;Code&nbsp;<span class="logo-cli">CLI</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="features.html">Features</a></li>
+        <li><a href="cli/">CLI Simulator <span class="badge-new">NEW</span></a></li>
+        <li><a href="quickstart.html">Quick Start</a></li>
+        <li><a href="download.html">Download</a></li>
+        <li><a href="docs.html">Docs</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="https://github.com/Alshahriar-07/seedcode-cli" class="btn btn-outline" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main" class="page-enter">
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Changelog</span>
+        <h1 data-chars>Shipped &amp; shipping</h1>
+        <p>Version history and what's next on the roadmap.</p>
+      </div>
+    </section>
+
+    <section class="section-tight">
+      <div class="container">
+        <div class="timeline">
+          <h2 class="timeline-heading reveal">Shipped</h2>
+          <div class="timeline-item is-current reveal">
+            <h3>v1.0.0 <span class="tag tag-latest">Latest</span> <span class="changelog-date">2026</span></h3>
+            <ul>
+              <li><strong>CLI</strong> — the full interactive command-line experience, shipped and stable</li>
+              <li><strong>Streaming</strong> — real-time token streaming across every supported provider</li>
+              <li><strong>Themes</strong> — Midnight, Paper, Ember, and Terminal Classic with careful contrast tuning</li>
+              <li><strong>Configuration</strong> — a complete configuration system with a guided setup wizard</li>
+              <li><strong>Providers</strong> — OpenRouter, ZenMux, AeroLink, and local Ollama</li>
+            </ul>
+          </div>
+
+          <h2 class="timeline-heading reveal">Upcoming</h2>
+          <div class="timeline-item reveal"><h3>Plugins <span class="tag tag-soon">Planned</span></h3><p>Extend Seed Code with community-built commands and renderers.</p></div>
+          <div class="timeline-item reveal"><h3>MCP <span class="tag tag-soon">Planned</span></h3><p>Model Context Protocol support for tools and external context.</p></div>
+          <div class="timeline-item reveal"><h3>Voice <span class="tag tag-soon">Planned</span></h3><p>Talk to your terminal — dictate prompts and hear responses.</p></div>
+          <div class="timeline-item reveal"><h3>Memory <span class="tag tag-soon">Planned</span></h3><p>Persistent, local-first memory across sessions and projects.</p></div>
+          <div class="timeline-item reveal"><h3>Desktop App <span class="tag tag-soon">Planned</span></h3><p>The Seed Code experience in a native desktop shell.</p></div>
+          <div class="timeline-item reveal"><h3>Agent Mode <span class="tag tag-soon">Planned</span></h3><p>Multi-step autonomous coding with plan, execute, and review.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-tight">
+      <div class="container">
+        <div class="cta reveal-scale">
+          <h2>Help shape the roadmap.</h2>
+          <p>Feature requests, bug reports, and pull requests are all welcome.</p>
+          <div class="hero-actions">
+            <a href="https://github.com/Alshahriar-07/seedcode-cli" class="btn btn-primary btn-lg" rel="noopener" data-magnetic>Contribute on GitHub</a>
+            <a href="download.html" class="btn btn-secondary btn-lg" data-magnetic>Get Seed Code CLI</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="index.html" class="logo">
+          <img src="img/seedcode.ico" alt="" class="logo-img" width="26" height="26">
+          Seed&nbsp;Code&nbsp;<span class="logo-cli">CLI</span>
+        </a>
+        <p class="footer-tag">The beautiful AI coding assistant for your terminal. Fast, elegant, and built for developers.</p>
+        <p class="footer-credit">Designed &amp; Developed by <strong>Eagox Studio</strong><br>
+          Creator — <a href="https://alshahriarsayon.vercel.app/" target="_blank" rel="noopener">Al Shahriar Sowan</a> · <a href="https://github.com/Alshahriar-07/seedcode-cli" target="_blank" rel="noopener">GitHub</a></p>
+      </div>
+      <nav aria-label="Product">
+        <h4>Product</h4>
+        <a href="features.html">Features</a>
+        <a href="download.html">Download</a>
+        <a href="changelog.html">Changelog</a>
+        <a href="gallery.html">Gallery</a>
+      </nav>
+      <nav aria-label="Resources">
+        <h4>Resources</h4>
+        <a href="docs.html">Documentation</a>
+        <a href="quickstart.html">Quick Start</a>
+        <a href="cli/" class="footer-sim-link">Interactive CLI Simulator <span aria-hidden="true">→</span></a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Support</a>
+      </nav>
+      <nav aria-label="Company">
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </nav>
+    </div>
+    <div class="container footer-bottom">
+      <p>© 2026 Eagox Studio · Seed Code CLI. All rights reserved.</p>
+      <p>Crafted for the terminal · v1.0.0 · <a href="https://github.com/Alshahriar-07/seedcode-cli/blob/main/LICENSE" rel="noopener">MIT License</a></p>
+    </div>
+  </footer>
+
+  <a href="cli/" class="cli-fab" aria-label="Open the live CLI simulator">
+    <span class="cli-fab-icon">🖥</span> Live CLI
+  </a>
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js" defer></script>
+  <script src="js/three-bg.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

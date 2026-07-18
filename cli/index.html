@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CLI Simulator — Seed Code | Try the Terminal in Your Browser</title>
+  <meta name="description" content="Try Seed Code CLI in your browser. A fully offline terminal simulator with real commands, boot sequence, themes, matrix mode, and natural-language questions.">
+  <meta name="keywords" content="Seed Code CLI simulator, terminal simulator, AI CLI demo, seedcode try online">
+  <meta name="author" content="Al Shahriar Sowan">
+  <meta name="publisher" content="Eagox Studio">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#050506">
+  <link rel="canonical" href="https://seedcode-cli.vercel.app/cli/">
+
+  <link rel="icon" href="../img/seedcode.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../img/logo.png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Seed Code CLI">
+  <meta property="og:title" content="Seed Code CLI Simulator — a terminal in your browser">
+  <meta property="og:description" content="Boot it, type commands, ask questions, enter matrix mode. 100% offline, no backend.">
+  <meta property="og:url" content="https://seedcode-cli.vercel.app/cli/">
+  <meta property="og:image" content="https://seedcode-cli.vercel.app/img/logo.png">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="dark">
+
+  <!-- Shared site navbar -->
+  <header class="nav-wrap">
+    <nav class="nav container" aria-label="Main navigation">
+      <a href="../index.html" class="logo" aria-label="Seed Code CLI home">
+        <img src="../img/seedcode.ico" alt="" class="logo-img" width="26" height="26">
+        Seed&nbsp;Code&nbsp;<span class="logo-cli">CLI</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../features.html">Features</a></li>
+        <li><a href="./" class="nav-active">CLI Simulator <span class="badge-new">NEW</span></a></li>
+        <li><a href="../quickstart.html">Quick Start</a></li>
+        <li><a href="../download.html">Download</a></li>
+        <li><a href="../docs.html">Docs</a></li>
+        <li><a href="../faq.html">FAQ</a></li>
+        <li><a href="https://github.com/Alshahriar-07/seedcode-cli" class="btn btn-outline" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Desktop backdrop -->
+  <div class="desk" aria-hidden="true">
+    <div class="desk-glow"></div>
+    <div class="desk-noise"></div>
+  </div>
+
+  <!-- Matrix rain canvas (activated by `matrix`) -->
+  <canvas class="matrix-canvas" aria-hidden="true"></canvas>
+
+  <div class="stage">
+
+    <!-- Suggestion chips -->
+    <div class="chips" role="group" aria-label="Suggested questions">
+      <span class="chips-label">Try asking:</span>
+      <button class="chip" data-cmd="what is seed code">What is Seed Code?</button>
+      <button class="chip" data-cmd="why is seed code free">Why is it free?</button>
+      <button class="chip" data-cmd="how to install">How do I install it?</button>
+      <button class="chip" data-cmd="who created seed code">Who created it?</button>
+      <button class="chip" data-cmd="what providers are supported">Supported AI providers</button>
+      <button class="chip" data-cmd="can i use openrouter">OpenRouter setup</button>
+      <button class="chip" data-cmd="features">CLI Features</button>
+      <button class="chip" data-cmd="show examples">Show examples</button>
+      <button class="chip" data-cmd="demo">Getting Started</button>
+      <button class="chip" data-cmd="roadmap">Roadmap</button>
+    </div>
+
+    <!-- Terminal window -->
+    <div class="term-window" role="application" aria-label="Seed Code CLI simulator">
+      <div class="term-titlebar">
+        <div class="term-dots">
+          <span class="tdot tdot-red"></span>
+          <span class="tdot tdot-yellow"></span>
+          <span class="tdot tdot-green"></span>
+        </div>
+        <span class="term-title"><img src="../img/seedcode.ico" alt="" width="14" height="14"> seedcode — simulator — 120×32</span>
+        <span class="term-title-right">zsh</span>
+      </div>
+
+      <div class="term-screen" id="screen" tabindex="0">
+        <div class="term-output" id="output" aria-live="polite"></div>
+        <div class="term-input-row" id="input-row" hidden>
+          <span class="prompt-str" id="prompt-str"><span class="c-green">seedcode</span><span class="c-dim"> on </span><span class="c-cyanish">~/projects</span><span class="c-green"> ❯</span></span>
+          <span class="input-text" id="input-text"></span><span class="cursor" id="cursor"></span>
+        </div>
+      </div>
+
+      <div class="term-statusbar">
+        <span id="status-left"><span class="c-green">●</span> simulator</span>
+        <span class="term-status-hints">↑ history · Tab complete · Ctrl+L clear · double-click output to copy</span>
+      </div>
+    </div>
+
+    <p class="stage-foot">A 100% offline simulation — no backend, no API.</p>
+  </div>
+
+  <!-- Shared site footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="../index.html" class="logo">
+          <img src="../img/seedcode.ico" alt="" class="logo-img" width="26" height="26">
+          Seed&nbsp;Code&nbsp;<span class="logo-cli">CLI</span>
+        </a>
+        <p class="footer-tag">The beautiful AI coding assistant for your terminal. Fast, elegant, and built for developers.</p>
+        <p class="footer-credit">Designed &amp; Developed by <strong>Eagox Studio</strong><br>
+          Creator — <a href="https://alshahriarsayon.vercel.app/" target="_blank" rel="noopener">Al Shahriar Sowan</a> · <a href="https://github.com/Alshahriar-07/seedcode-cli" target="_blank" rel="noopener">GitHub</a></p>
+      </div>
+      <nav aria-label="Product">
+        <h4>Product</h4>
+        <a href="../features.html">Features</a>
+        <a href="../download.html">Download</a>
+        <a href="../changelog.html">Changelog</a>
+        <a href="../gallery.html">Gallery</a>
+      </nav>
+      <nav aria-label="Resources">
+        <h4>Resources</h4>
+        <a href="../docs.html">Documentation</a>
+        <a href="../quickstart.html">Quick Start</a>
+        <a href="./" class="footer-sim-link">Interactive CLI Simulator <span aria-hidden="true">→</span></a>
+        <a href="../faq.html">FAQ</a>
+        <a href="../support.html">Support</a>
+      </nav>
+      <nav aria-label="Company">
+        <h4>Company</h4>
+        <a href="../about.html">About</a>
+        <a href="../portfolio.html">Portfolio</a>
+        <a href="../privacy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
+      </nav>
+    </div>
+    <div class="container footer-bottom">
+      <p>© 2026 Eagox Studio · Seed Code CLI. All rights reserved.</p>
+      <p>Crafted for the terminal · v1.0.0 · <a href="https://github.com/Alshahriar-07/seedcode-cli/blob/main/LICENSE" rel="noopener">MIT License</a></p>
+    </div>
+  </footer>
+
+  <!-- Hidden real input to capture keyboard incl. mobile -->
+  <input type="text" id="kbd" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Terminal input">
+
+  <script src="script.js"></script>
+</body>
+</html>

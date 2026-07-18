@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seed Code CLI — The Beautiful AI Coding Assistant for Your Terminal</title>
+  <meta name="description" content="Seed Code CLI is a fast, elegant AI coding assistant for your terminal. Connect to OpenRouter, AeroLink, FreeModel, and Ollama with streaming responses and cross-platform support. Free and open source.">
+  <meta name="keywords" content="Seed Code CLI, seedcode cli, AI CLI, terminal AI assistant, AI coding assistant, OpenRouter CLI, Ollama CLI, developer AI tools">
+  <meta name="author" content="Al Shahriar Sowan">
+  <meta name="publisher" content="Eagox Studio">
+  <link rel="author" href="https://alshahriarsayon.vercel.app/">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#09090B">
+  <link rel="canonical" href="https://seedcode-cli.vercel.app/">
+
+  <link rel="icon" href="img/seedcode.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="img/logo.svg">
+  <link rel="apple-touch-icon" href="img/logo.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Seed Code CLI">
+  <meta property="og:title" content="Seed Code CLI — The Beautiful AI Coding Assistant for Your Terminal">
+  <meta property="og:description" content="Seed Code CLI is a fast, elegant AI coding assistant for your terminal. Connect to OpenRouter, AeroLink, FreeModel, and Ollama with streaming responses and cross-platform support. Free and open source.">
+  <meta property="og:url" content="https://seedcode-cli.vercel.app/">
+  <meta property="og:image" content="https://seedcode-cli.vercel.app/img/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Seed Code CLI — The Beautiful AI Coding Assistant for Your Terminal">
+  <meta name="twitter:description" content="Seed Code CLI is a fast, elegant AI coding assistant for your terminal. Connect to OpenRouter, AeroLink, FreeModel, and Ollama with streaming responses and cross-platform support. Free and open source.">
+  <meta name="twitter:image" content="https://seedcode-cli.vercel.app/img/logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Seed Code CLI",
+    "operatingSystem": "Windows, Linux, macOS",
+    "applicationCategory": "DeveloperApplication",
+    "description": "The beautiful AI coding assistant for your terminal.",
+    "url": "https://seedcode-cli.vercel.app/",
+    "image": "https://seedcode-cli.vercel.app/img/logo.png",
+    "softwareVersion": "1.0.0",
+    "license": "https://github.com/Alshahriar-07/seedcode-cli/blob/main/LICENSE",
+    "author": { "@type": "Person", "name": "Al Shahriar Sowan", "url": "https://alshahriarsayon.vercel.app/" },
+    "publisher": { "@type": "Organization", "name": "Eagox Studio" },
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "downloadUrl": "https://seedcode-cli.vercel.app/Files/SeedCodeSetup.exe"
+  }
+  </script>
+</head>
+<body data-transition="wipe" data-enter="zoom">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <div class="pt-overlay" aria-hidden="true"><div class="pt-b"></div><div class="pt-a"></div></div>
+
+  <div class="bg-layers" aria-hidden="true">
+    <div class="bg-spotlight"></div>
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+    <canvas class="bg-three"></canvas>
+    <canvas class="bg-particles"></canvas>
+    <div class="bg-noise"></div>
+  </div>
+
+  <header class="nav-wrap">
+    <nav class="nav container" aria-label="Main navigation">
+      <a href="index.html" class="logo" aria-label="Seed Code CLI home">
+        <img src="img/seedcode.ico" alt="" class="logo-img" width="26" height="26">
+        Seed&nbsp;Code&nbsp;<span class="logo-cli">CLI</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="features.html">Features</a></li>
+        <li><a href="cli/">CLI Simulator <span class="badge-new">NEW</span></a></li>
+        <li><a href="quickstart.html">Quick Start</a></li>
+        <li><a href="download.html">Download</a></li>
+        <li><a href="docs.html">Docs</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="https://github.com/Alshahriar-07/seedcode-cli" class="btn btn-outline" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main" class="page-enter">
+    <!-- Intro boot sequence -->
+    <div class="intro" aria-hidden="true">
+      <div class="intro-stage">
+        <span class="intro-logo-wrap"><img src="img/seedcode.ico" alt="" class="intro-logo" width="92" height="92"></span>
+        <div class="intro-name"><span class="intro-name-text"></span><span class="t-cursor-i"></span></div>
+        <div class="intro-boot"></div>
+        <div class="intro-progress">
+          <span class="intro-progress-bar"><span class="intro-progress-fill"></span></span>
+          <span class="intro-progress-pct">0%</span>
+        </div>
+      </div>
+      <button class="intro-skip" type="button">Skip Intro <kbd>Esc</kbd></button>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy build-in">
+          <div class="hero-badges">
+            <span class="badge badge-accent"><span class="badge-dot"></span>Open Source</span>
+            <span class="badge">v1.0.0</span>
+            <span class="badge">MIT License</span>
+          </div>
+          <h1 class="words visible">The AI coding assistant, inside your <span class="accent-word">terminal</span>.</h1>
+          <p class="hero-sub">Fast, elegant, and built for developers. Connect to <strong>OpenRouter</strong>, <strong>AeroLink</strong>, <strong>FreeModel</strong>, or run fully local with <strong>Ollama</strong> — with streaming responses and a terminal experience polished down to the last character.</p>
+          <div class="hero-actions">
+            <a href="Files/SeedCodeSetup.exe" download="SeedCodeSetup.exe" class="btn btn-primary btn-lg" data-magnetic><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg> Download for Windows</a>
+            <a href="quickstart.html" class="btn btn-secondary btn-lg" data-magnetic>Quick Start</a>
+          </div>
+          <div class="install-card">
+            <code>pip install seedcode-cli</code>
+            <button class="copy-btn" data-copy="pip install seedcode-cli" aria-label="Copy command"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span class="copy-label">Copy</span></button>
+          </div>
+        </div>
+
+        <div class="terminal-frame">
+          <div class="terminal">
+            <div class="terminal-bar">
+              <div class="terminal-dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+              <span class="terminal-title">seedcode — live simulator</span>
+              <span></span>
+            </div>
+            <div class="terminal-body" data-minisim role="img" aria-label="Live mini simulator automatically typing Seed Code CLI commands and answers"></div>
+          </div>
+          <div class="term-continue">
+            <a href="cli/" class="btn btn-secondary btn-block" data-magnetic>Continue in the Full CLI Simulator</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive CLI Simulator -->
+    <section class="section sim-section">
+      <div class="container">
+        <div class="sim-banner reveal-scale">
+          <div class="sim-banner-copy">
+            <span class="eyebrow">🖥 Interactive CLI Simulator</span>
+            <h2 data-chars>Experience the real Seed Code terminal directly in your browser.</h2>
+            <ul class="sim-points">
+              <li><span class="c-ok">✓</span> No installation.</li>
+              <li><span class="c-ok">✓</span> No account.</li>
+              <li><span class="c-ok">✓</span> 100% Offline Demo.</li>
+            </ul>
+            <div class="hero-actions">
+              <a href="cli/" class="btn btn-primary btn-lg" data-magnetic>Launch Simulator</a>
+            </div>
+          </div>
+          <div class="sim-banner-term" aria-hidden="true">
+            <div class="terminal">
+              <div class="terminal-bar">
+                <div class="terminal-dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+                <span class="terminal-title">seedcode — simulator</span>
+                <span></span>
+              </div>
+              <div class="terminal-body terminal-body-sm" data-simpreview></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats" data-pin aria-label="Project statistics">
+      <div class="container">
+        <div class="stats-grid stagger reveal">
+          <div class="stat"><span class="stat-num"><span class="counter" data-target="312">0</span><span class="stat-suffix">+</span></span><span class="stat-label">Models via OpenRouter</span></div>
+          <div class="stat"><span class="stat-num"><span class="counter" data-target="47">0</span><span class="stat-suffix">+</span></span><span class="stat-label">Free-tier models</span></div>
+          <div class="stat"><span class="stat-num"><span class="counter" data-target="4">0</span></span><span class="stat-label">Providers supported</span></div>
+          <div class="stat"><span class="stat-num"><span class="counter" data-target="3">0</span></span><span class="stat-label">Platforms, one tool</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature teaser -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head gsap-head">
+          <span class="eyebrow">Why Seed Code</span>
+          <h2 data-chars>Built for the shell you live in</h2>
+          <p>Streaming AI, hundreds of models, and a terminal UI that feels first-class.</p>
+        </div>
+        <div class="feature-grid stagger reveal">
+          <article class="feature-card" data-tilt>
+            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div>
+            <h3>Streaming Responses</h3>
+            <p>Tokens render the instant they arrive — no waiting spinner, even over SSH.</p>
+          </article>
+          <article class="feature-card" data-tilt>
+            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v4M6.5 17l4-5.5M17.5 17l-4-5.5"/></svg></div>
+            <h3>Any Provider</h3>
+            <p>OpenRouter, ZenMux, AeroLink — or fully local and private with Ollama.</p>
+          </article>
+          <article class="feature-card" data-tilt>
+            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z"/></svg></div>
+            <h3>Beautiful Output</h3>
+            <p>Markdown, syntax highlighting, panels, and progress states — considered down to the cursor.</p>
+          </article>
+        </div>
+        <p class="dl-footnote"><a href="features.html" class="link-arrow">Explore all features <span aria-hidden="true">→</span></a></p>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section-tight">
+      <div class="container">
+        <div class="cta reveal-scale">
+          <h2>Your terminal deserves better.</h2>
+          <p>Install Seed Code CLI and start shipping with AI — beautifully.</p>
+          <div class="hero-actions">
+            <a href="download.html" class="btn btn-primary btn-lg" data-magnetic>Get Seed Code CLI</a>
+            <a href="https://github.com/Alshahriar-07/seedcode-cli" class="btn btn-secondary btn-lg" rel="noopener" data-magnetic>Star on GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="index.html" class="logo">
+          <img src="img/seedcode.ico" alt="" class="logo-img" width="26" height="26">
+          Seed&nbsp;Code&nbsp;<span class="logo-cli">CLI</span>
+        </a>
+        <p class="footer-tag">The beautiful AI coding assistant for your terminal. Fast, elegant, and built for developers.</p>
+        <p class="footer-credit">Designed &amp; Developed by <strong>Eagox Studio</strong><br>
+          Creator — <a href="https://alshahriarsayon.vercel.app/" target="_blank" rel="noopener">Al Shahriar Sowan</a> · <a href="https://github.com/Alshahriar-07/seedcode-cli" target="_blank" rel="noopener">GitHub</a></p>
+      </div>
+      <nav aria-label="Product">
+        <h4>Product</h4>
+        <a href="features.html">Features</a>
+        <a href="download.html">Download</a>
+        <a href="changelog.html">Changelog</a>
+        <a href="gallery.html">Gallery</a>
+      </nav>
+      <nav aria-label="Resources">
+        <h4>Resources</h4>
+        <a href="docs.html">Documentation</a>
+        <a href="quickstart.html">Quick Start</a>
+        <a href="cli/" class="footer-sim-link">Interactive CLI Simulator <span aria-hidden="true">→</span></a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Support</a>
+      </nav>
+      <nav aria-label="Company">
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </nav>
+    </div>
+    <div class="container footer-bottom">
+      <p>© 2026 Eagox Studio · Seed Code CLI. All rights reserved.</p>
+      <p>Crafted for the terminal · v1.0.0 · <a href="https://github.com/Alshahriar-07/seedcode-cli/blob/main/LICENSE" rel="noopener">MIT License</a></p>
+    </div>
+  </footer>
+
+  <a href="cli/" class="cli-fab" aria-label="Open the live CLI simulator">
+    <span class="cli-fab-icon">🖥</span> Live CLI
+  </a>
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js" defer></script>
+  <script src="js/three-bg.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

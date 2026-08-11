@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Documentation — Seed Code CLI | Installation, Commands & Configuration</title>
-  <meta name="description" content="Seed Code CLI documentation: installation, every command, configuration, providers (OpenRouter, ZenMux, AeroLink, Ollama), and troubleshooting.">
+  <meta name="description" content="Seed Code CLI documentation: installation, every command, configuration, five providers (OpenRouter, FreeModel Claude & Codex, AeroLink, Ollama), and troubleshooting.">
   <meta name="keywords" content="Seed Code CLI, seedcode cli, AI CLI, terminal AI assistant, AI coding assistant, OpenRouter CLI, Ollama CLI, developer AI tools">
   <meta name="author" content="Al Shahriar Sowan">
   <meta name="publisher" content="Eagox Studio">
   <link rel="author" href="https://alshahriarsayon.vercel.app/">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#09090B">
-  <link rel="canonical" href="https://seedcode-cli.vercel.app/docs.html">
+  <link rel="canonical" href="https://seedcode-web.vercel.app/docs.html">
 
   <link rel="icon" href="img/seedcode.ico" sizes="any">
   <link rel="icon" type="image/svg+xml" href="img/logo.svg">
@@ -21,13 +21,13 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Seed Code CLI">
   <meta property="og:title" content="Documentation — Seed Code CLI | Installation, Commands & Configuration">
-  <meta property="og:description" content="Seed Code CLI documentation: installation, every command, configuration, providers (OpenRouter, ZenMux, AeroLink, Ollama), and troubleshooting.">
-  <meta property="og:url" content="https://seedcode-cli.vercel.app/docs.html">
-  <meta property="og:image" content="https://seedcode-cli.vercel.app/img/logo.png">
+  <meta property="og:description" content="Seed Code CLI documentation: installation, every command, configuration, five providers (OpenRouter, FreeModel Claude & Codex, AeroLink, Ollama), and troubleshooting.">
+  <meta property="og:url" content="https://seedcode-web.vercel.app/docs.html">
+  <meta property="og:image" content="https://seedcode-web.vercel.app/img/logo.png">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Documentation — Seed Code CLI | Installation, Commands & Configuration">
-  <meta name="twitter:description" content="Seed Code CLI documentation: installation, every command, configuration, providers (OpenRouter, ZenMux, AeroLink, Ollama), and troubleshooting.">
-  <meta name="twitter:image" content="https://seedcode-cli.vercel.app/img/logo.png">
+  <meta name="twitter:description" content="Seed Code CLI documentation: installation, every command, configuration, five providers (OpenRouter, FreeModel Claude & Codex, AeroLink, Ollama), and troubleshooting.">
+  <meta name="twitter:image" content="https://seedcode-web.vercel.app/img/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,7 +59,6 @@
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="features.html">Features</a></li>
-        <li><a href="cli/">CLI Simulator <span class="badge-new">NEW</span></a></li>
         <li><a href="quickstart.html">Quick Start</a></li>
         <li><a href="download.html">Download</a></li>
         <li><a href="docs.html">Docs</a></li>
@@ -88,95 +87,124 @@
         <p class="lead">Everything from your first install to advanced configuration — in one place.</p>
 
         <div class="sim-strip sim-strip-docs">
-          <p><strong>New here?</strong> Launch the CLI Simulator first.</p>
-          <a href="cli/" class="btn btn-secondary" data-magnetic>Launch Simulator <span aria-hidden="true">→</span></a>
+          <p><strong>New here?</strong> Try Seed Code Chat in your browser first.</p>
+          <a href="https://seedcode-chat.vercel.app/" class="btn btn-secondary" target="_blank" rel="noopener" data-magnetic>Try Seed Code Chat <span aria-hidden="true">→</span></a>
         </div>
 
         <section id="installation">
           <h2>Installation</h2>
           <h3>pip (all platforms)</h3>
-          <p>Requires Python 3.9 or newer. Installs straight from PyPI.</p>
+          <p>Requires Python 3.12 or newer. Installs straight from PyPI.</p>
           <pre><code><span class="pre-comment"># Install and launch</span>
 <span class="pre-accent">$</span> pip install seedcode-cli
 <span class="pre-accent">$</span> seedcode
 
 <span class="pre-comment"># Verify</span>
 <span class="pre-accent">$</span> seedcode --version
-seedcode v1.0.0</code></pre>
+seedcode v5.0.2</code></pre>
           <h3>uv (isolated tool)</h3>
           <pre><code><span class="pre-accent">$</span> uv tool install seedcode-cli</code></pre>
-          <h3>Windows installer</h3>
-          <p>A standalone setup wizard — no Python required. <a href="Files/SeedCodeSetup.exe" download="SeedCodeSetup.exe">Download SeedCodeSetup.exe</a>.</p>
-          <h3>Linux &amp; macOS ZIP</h3>
-          <p>Grab the packaged ZIP from <a href="https://mega.nz/file/pIU0HaJB#nX8HW3f6hBtan1nHuwvzaWujChjtpw8eA6zYFH0NZRQ" target="_blank" rel="noopener">MEGA</a> — it includes the complete package for both platforms.</p>
-          <div class="callout"><strong>Tip:</strong> whichever method you choose, <code>seedcode doctor</code> confirms everything is in place.</div>
+          <h3>Windows installer (recommended)</h3>
+          <p>One-click <code>seedcode-cli-setup.exe</code> — installs to Program Files, adds <code>seedcode</code> to PATH, creates Start Menu shortcuts, no Python required. <a href="https://github.com/Alshahriar-07/seedcode-cli/releases/download/v5.0.2/seedcode-cli-setup.exe" rel="noopener">Download for Windows</a>.</p>
+          <h3>Linux &amp; macOS</h3>
+          <p>Grab the packaged ZIP from <a href="https://mega.nz/file/pIU0HaJB#nX8HW3f6hBtan1nHuwvzaWujChjtpw8eA6zYFH0NZRQ" target="_blank" rel="noopener">MEGA</a> — it includes the complete package for both platforms. Helper scripts live in <code>scripts/linux/</code> and <code>scripts/macos/</code>. You can also install from the <a href="https://github.com/Alshahriar-07/seedcode-cli/archive/refs/tags/v5.0.2.zip" rel="noopener">source archive</a> with <code>pip install .</code>.</p>
+          <div class="callout"><strong>Tip:</strong> whichever method you choose, <code>/doctor</code> inside a session confirms everything is in place.</div>
         </section>
 
         <section id="configuration">
           <h2>Configuration</h2>
-          <p>Seed Code stores its settings in a single TOML file at <code>~/.seedcode/config.toml</code>. Run <code>seedcode config</code> for the guided wizard, or edit the file directly.</p>
-          <pre><code><span class="pre-comment"># ~/.seedcode/config.toml</span>
-[provider]
-name = "openrouter"
-model = "glm-5.2"
-stream = true
-
-[appearance]
-theme = "midnight"        <span class="pre-comment"># midnight | paper | ember | terminal-classic</span>
-markdown = true</code></pre>
+          <p>Seed Code stores its settings in a single JSON file at <code>~/.seedcode/config.json</code> (owner-only permissions where the OS supports it). Each provider keeps its own entry, so nothing is shared or overwritten.</p>
+          <pre><code><span class="pre-comment"># ~/.seedcode/config.json</span>
+{
+  "active_provider": "freemodel_claude",
+  "providers": {
+    "openrouter":        { "api_key": "sk-or-...", "model": "vendor/model" },
+    "freemodel_claude":  { "api_key": "fe_oa_...", "model": "claude-sonnet-4-6" },
+    "freemodel_codex":   { "api_key": "fe_oa_...", "model": "auto" },
+    "aerolink":          { "api_key": "...",       "model": "..." },
+    "ollama":            { "api_key": "",          "model": "llama3.2" }
+  },
+  "ollama_host": "http://localhost:11434",
+  "max_tokens": 1024
+}</code></pre>
           <h3>API keys</h3>
-          <p>Keys are stored securely by the config wizard. For CI and containers, the <code>SEEDCODE_API_KEY</code> environment variable takes precedence over the config file.</p>
+          <p>Keys are only saved after a real authenticated validation. For CI and containers, environment variables override stored keys: <code>OPENROUTER_API_KEY</code>, <code>FREEMODEL_API_KEY</code>, and <code>AEROLINK_API_KEY</code>.</p>
         </section>
 
         <section id="providers">
           <h2>Providers</h2>
+          <p>Five independent backends — each owns its API key, model, connection status, and history. Switch anytime with <code>/provider</code>.</p>
           <table class="docs-table">
             <thead><tr><th>Provider</th><th>Best for</th><th>Config value</th></tr></thead>
             <tbody>
-              <tr><td>OpenRouter</td><td>Hundreds of models, including free tiers</td><td><code>openrouter</code></td></tr>
-              <tr><td>ZenMux</td><td>Unified routing with automatic failover</td><td><code>zenmux</code></td></tr>
-              <tr><td>AeroLink</td><td>Low-latency, regional endpoints</td><td><code>aerolink</code></td></tr>
+              <tr><td>OpenRouter</td><td>Full model catalogue — free and Pro modes on one key</td><td><code>openrouter</code></td></tr>
+              <tr><td>FreeModel Claude</td><td>Claude-family models, live catalogue, auto-select</td><td><code>freemodel_claude</code></td></tr>
+              <tr><td>FreeModel Codex</td><td>GPT/Codex models on the Responses API</td><td><code>freemodel_codex</code></td></tr>
+              <tr><td>AeroLink</td><td>Anthropic-compatible gateway, dynamic model fetch</td><td><code>aerolink</code></td></tr>
               <tr><td>Ollama</td><td>Fully local, private, no API key</td><td><code>ollama</code></td></tr>
             </tbody>
           </table>
-          <p>Browse availability any time with <code>seedcode models</code> — 312+ models on OpenRouter, 47+ of them free.</p>
+          <p>No model is ever hardcoded — browse any provider's live catalogue with <code>/model</code>. 312+ models on OpenRouter, 47+ of them free.</p>
         </section>
 
         <section id="commands">
           <h2>Commands</h2>
+          <p>Every command is a slash command, typed inside a <code>seedcode</code> session.</p>
           <table class="docs-table">
             <thead><tr><th>Command</th><th>Description</th></tr></thead>
             <tbody>
-              <tr><td><code>seedcode</code></td><td>Launch the interactive assistant in your current directory</td></tr>
-              <tr><td><code>seedcode chat</code></td><td>Start a focused chat session with your configured model</td></tr>
-              <tr><td><code>seedcode config</code></td><td>Open the configuration wizard for providers, keys, and themes</td></tr>
-              <tr><td><code>seedcode doctor</code></td><td>Diagnose your setup — keys, connectivity, and environment</td></tr>
-              <tr><td><code>seedcode models</code></td><td>Browse and search every model available on your provider</td></tr>
-              <tr><td><code>seedcode update</code></td><td>Update Seed Code CLI to the latest release in place</td></tr>
+              <tr><td><code>/help</code></td><td>Show available commands</td></tr>
+              <tr><td><code>/provider</code></td><td>Switch provider: OpenRouter, FreeModel Claude, FreeModel Codex, AeroLink, Ollama</td></tr>
+              <tr><td><code>/apikey</code></td><td>View, replace, remove, or validate the active key</td></tr>
+              <tr><td><code>/model</code></td><td>Browse the live model list ('auto' = FreeModel auto-select)</td></tr>
+              <tr><td><code>/config</code></td><td>Show configuration — every provider's key and model</td></tr>
+              <tr><td><code>/settings</code></td><td>Change a setting: username, stream, ollama_host, max_tokens</td></tr>
+              <tr><td><code>/doctor</code></td><td>Diagnose config, network, and provider health</td></tr>
+              <tr><td><code>/agent</code></td><td>Toggle agent mode — the AI can read, edit, search, and run commands</td></tr>
+              <tr><td><code>/assist</code></td><td>Enable Assist Mode: unified AI + computer control</td></tr>
+              <tr><td><code>/permission</code></td><td>Set the agent permission mode: read_only, workspace, full_access</td></tr>
+              <tr><td><code>/tools</code></td><td>List the tools available in agent mode</td></tr>
+              <tr><td><code>/index</code></td><td>Show a compact tree of the current project</td></tr>
+              <tr><td><code>/history</code></td><td>List saved conversation sessions</td></tr>
+              <tr><td><code>/reset</code></td><td>Forget the current conversation</td></tr>
+              <tr><td><code>/clear</code></td><td>Clear the screen</td></tr>
+              <tr><td><code>/about</code></td><td>About Seed Code</td></tr>
+              <tr><td><code>/version</code></td><td>Show the version</td></tr>
+              <tr><td><code>/exit</code></td><td>Leave the chat — back to the main menu</td></tr>
             </tbody>
           </table>
         </section>
 
         <section id="examples">
           <h2>Examples</h2>
-          <h3>One-shot prompts</h3>
-          <pre><code><span class="pre-accent">$</span> seedcode "write a haiku about git"
-branches drift apart
-a merge brings them home again
-conflicts, then release</code></pre>
           <h3>Health check</h3>
-          <pre><code><span class="pre-accent">$</span> seedcode doctor
-✓ Python 3.12 detected
-✓ API key configured
-✓ Network reachable (82 ms)
-6/6 checks passed · environment healthy</code></pre>
+          <pre><code><span class="pre-accent">$</span> seedcode
+you › /doctor
+✓ Config valid
+✓ Network reachable
+✓ Provider healthy
+3/3 checks passed · environment healthy</code></pre>
+          <h3>Agent mode (project tools)</h3>
+          <pre><code>you › /agent
+✓ Agent Mode ON — the AI can read, edit, search, and run commands
+
+you › /index
+▸ src/
+  ▸ components/
+  ▸ utils/
+▸ tests/</code></pre>
+          <h3>Assist Mode (computer control)</h3>
+          <pre><code>you › /assist on
+✓ Assist Mode ON
+AI · Filesystem · Terminal · Git · Browser · Keyboard
+Mouse · Windows · Vision · OCR · Desktop Automation</code></pre>
         </section>
 
         <section id="troubleshooting">
           <h2>Troubleshooting</h2>
           <ul>
             <li><strong>Command not found</strong> — make sure your Python scripts directory is on PATH, or reinstall with <code>uv tool install seedcode-cli</code>.</li>
-            <li><strong>Auth errors</strong> — re-run <code>seedcode config</code> or check <code>SEEDCODE_API_KEY</code>.</li>
+            <li><strong>Auth errors</strong> — re-run the API key flow with <code>/apikey</code>, or set <code>OPENROUTER_API_KEY</code>, <code>FREEMODEL_API_KEY</code>, or <code>AEROLINK_API_KEY</code>.</li>
             <li><strong>Garbled output</strong> — use a terminal with truecolor support (Windows Terminal, iTerm2, most modern emulators).</li>
           </ul>
           <p>Still stuck? Visit <a href="support.html">Support</a> or <a href="https://github.com/Alshahriar-07/seedcode-cli/issues" rel="noopener">open an issue</a>.</p>
@@ -194,7 +222,8 @@ conflicts, then release</code></pre>
         </a>
         <p class="footer-tag">The beautiful AI coding assistant for your terminal. Fast, elegant, and built for developers.</p>
         <p class="footer-credit">Designed &amp; Developed by <strong>Eagox Studio</strong><br>
-          Creator — <a href="https://alshahriarsayon.vercel.app/" target="_blank" rel="noopener">Al Shahriar Sowan</a> · <a href="https://github.com/Alshahriar-07/seedcode-cli" target="_blank" rel="noopener">GitHub</a></p>
+          Created by <a href="https://alshahriarsayon.vercel.app/" target="_blank" rel="noopener">Al Shahriar Sowan</a> · <a href="https://github.com/Alshahriar-07/seedcode-cli" target="_blank" rel="noopener">GitHub</a><br>
+          Vibe coded with GPT-5.5 + Claude Opus 4.8</p>
       </div>
       <nav aria-label="Product">
         <h4>Product</h4>
@@ -207,7 +236,7 @@ conflicts, then release</code></pre>
         <h4>Resources</h4>
         <a href="docs.html">Documentation</a>
         <a href="quickstart.html">Quick Start</a>
-        <a href="cli/" class="footer-sim-link">Interactive CLI Simulator <span aria-hidden="true">→</span></a>
+        <a href="https://seedcode-chat.vercel.app/" target="_blank" rel="noopener">Seed Code Chat <span aria-hidden="true">→</span></a>
         <a href="faq.html">FAQ</a>
         <a href="support.html">Support</a>
       </nav>
@@ -221,13 +250,9 @@ conflicts, then release</code></pre>
     </div>
     <div class="container footer-bottom">
       <p>© 2026 Eagox Studio · Seed Code CLI. All rights reserved.</p>
-      <p>Crafted for the terminal · v1.0.0 · <a href="https://github.com/Alshahriar-07/seedcode-cli/blob/main/LICENSE" rel="noopener">MIT License</a></p>
+      <p>Crafted for the terminal · v5.0.2 · <a href="https://github.com/Alshahriar-07/seedcode-cli/blob/main/LICENSE" rel="noopener">MIT License</a></p>
     </div>
   </footer>
-
-  <a href="cli/" class="cli-fab" aria-label="Open the live CLI simulator">
-    <span class="cli-fab-icon">🖥</span> Live CLI
-  </a>
 
   <!-- Motion libraries (Lenis, GSAP) are lazy-loaded by main.js after first paint -->
   <script src="js/main.js" defer></script>

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://seedcode-cli.vercel.app/sitemap.xml
+Sitemap: https://seedcode-web.vercel.app/sitemap.xml

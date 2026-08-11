@@ -11,7 +11,7 @@
   <link rel="author" href="https://alshahriarsayon.vercel.app/">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#09090B">
-  <link rel="canonical" href="https://seedcode-cli.vercel.app/faq.html">
+  <link rel="canonical" href="https://seedcode-web.vercel.app/faq.html">
 
   <link rel="icon" href="img/seedcode.ico" sizes="any">
   <link rel="icon" type="image/svg+xml" href="img/logo.svg">
@@ -22,12 +22,12 @@
   <meta property="og:site_name" content="Seed Code CLI">
   <meta property="og:title" content="FAQ — Seed Code CLI | Installation, Pricing, Platforms & Providers">
   <meta property="og:description" content="Quick answers about Seed Code CLI: installation with pip and uv, pricing, Windows support, providers, and API key configuration.">
-  <meta property="og:url" content="https://seedcode-cli.vercel.app/faq.html">
-  <meta property="og:image" content="https://seedcode-cli.vercel.app/img/logo.png">
+  <meta property="og:url" content="https://seedcode-web.vercel.app/faq.html">
+  <meta property="og:image" content="https://seedcode-web.vercel.app/img/logo.png">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="FAQ — Seed Code CLI | Installation, Pricing, Platforms & Providers">
   <meta name="twitter:description" content="Quick answers about Seed Code CLI: installation with pip and uv, pricing, Windows support, providers, and API key configuration.">
-  <meta name="twitter:image" content="https://seedcode-cli.vercel.app/img/logo.png">
+  <meta name="twitter:image" content="https://seedcode-web.vercel.app/img/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,11 +40,11 @@
     "@type": "FAQPage",
     "mainEntity": [
       { "@type": "Question", "name": "Is Seed Code free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Seed Code CLI is free and open source under the MIT license. You only pay your AI provider for model usage — and through OpenRouter you can use many models entirely for free." } },
-      { "@type": "Question", "name": "Can I install using pip?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Run pip install seedcode-cli with Python 3.9 or newer, then launch it with the seedcode command from any terminal." } },
+      { "@type": "Question", "name": "Can I install using pip?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Run pip install seedcode-cli with Python 3.12 or newer, then launch it with the seedcode command from any terminal." } },
       { "@type": "Question", "name": "Can I install using uv?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Run uv tool install seedcode-cli to install it as an isolated tool with uv. This keeps Seed Code out of your project environments and makes updates instant." } },
       { "@type": "Question", "name": "Does it support Windows?", "acceptedAnswer": { "@type": "Answer", "text": "Fully. Seed Code runs natively on Windows (including Windows Terminal and PowerShell), plus Linux and macOS. Windows users can also download the standalone SeedCodeSetup.exe installer from the download page." } },
-      { "@type": "Question", "name": "Which providers are supported?", "acceptedAnswer": { "@type": "Answer", "text": "Seed Code supports OpenRouter, ZenMux, and AeroLink out of the box, plus fully local models through Ollama. Through OpenRouter alone you get access to hundreds of models, including free-tier options." } },
-      { "@type": "Question", "name": "How do I configure my API key?", "acceptedAnswer": { "@type": "Answer", "text": "Run seedcode config and the setup wizard will walk you through choosing a provider and storing your API key securely in ~/.seedcode/config.toml. You can also set the SEEDCODE_API_KEY environment variable." } }
+      { "@type": "Question", "name": "Which providers are supported?", "acceptedAnswer": { "@type": "Answer", "text": "Seed Code supports OpenRouter, FreeModel Claude, FreeModel Codex, and AeroLink out of the box, plus fully local models through Ollama. Each provider keeps its own API key, model, and conversation history — and through the FreeModel providers many models are entirely free." } },
+      { "@type": "Question", "name": "How do I configure my API key?", "acceptedAnswer": { "@type": "Answer", "text": "Run seedcode and use /apikey in the session to add keys for OpenRouter, FreeModel, or AeroLink. Everything is stored locally in ~/.seedcode/config.json. You can also set environment variables like OPENROUTER_API_KEY, FREEMODEL_API_KEY, or AEROLINK_API_KEY." } }
     ]
   }
   </script>
@@ -73,7 +73,6 @@
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="features.html">Features</a></li>
-        <li><a href="cli/">CLI Simulator <span class="badge-new">NEW</span></a></li>
         <li><a href="quickstart.html">Quick Start</a></li>
         <li><a href="download.html">Download</a></li>
         <li><a href="docs.html">Docs</a></li>
@@ -101,7 +100,7 @@
           </details>
           <details class="faq-item reveal">
             <summary>Can I install using pip?</summary>
-            <p>Yes. Run <code>pip install seedcode-cli</code> with Python 3.9 or newer, then launch it with the <code>seedcode</code> command from any terminal.</p>
+            <p>Yes. Run <code>pip install seedcode-cli</code> with Python 3.12 or newer, then launch it with the <code>seedcode</code> command from any terminal.</p>
           </details>
           <details class="faq-item reveal">
             <summary>Can I install using uv?</summary>
@@ -113,11 +112,11 @@
           </details>
           <details class="faq-item reveal">
             <summary>Which providers are supported?</summary>
-            <p>Seed Code supports OpenRouter, ZenMux, and AeroLink out of the box, plus fully local models through Ollama. Through OpenRouter alone you get access to hundreds of models, including free-tier options.</p>
+            <p>Seed Code supports OpenRouter, FreeModel Claude, FreeModel Codex, and AeroLink out of the box, plus fully local models through Ollama. Each provider keeps its own API key, model, and conversation history — and through the FreeModel providers many models are entirely free.</p>
           </details>
           <details class="faq-item reveal">
             <summary>How do I configure my API key?</summary>
-            <p>Run <code>seedcode config</code> and the setup wizard will walk you through choosing a provider and storing your API key securely in <code>~/.seedcode/config.toml</code>. You can also set the <code>SEEDCODE_API_KEY</code> environment variable.</p>
+            <p>Run <code>seedcode</code> and use <code>/apikey</code> in the session to add keys for OpenRouter, FreeModel, or AeroLink. Everything is stored locally in <code>~/.seedcode/config.json</code>. You can also set environment variables like <code>OPENROUTER_API_KEY</code>, <code>FREEMODEL_API_KEY</code>, or <code>AEROLINK_API_KEY</code>.</p>
           </details>
         </div>
       </div>
@@ -146,7 +145,8 @@
         </a>
         <p class="footer-tag">The beautiful AI coding assistant for your terminal. Fast, elegant, and built for developers.</p>
         <p class="footer-credit">Designed &amp; Developed by <strong>Eagox Studio</strong><br>
-          Creator — <a href="https://alshahriarsayon.vercel.app/" target="_blank" rel="noopener">Al Shahriar Sowan</a> · <a href="https://github.com/Alshahriar-07/seedcode-cli" target="_blank" rel="noopener">GitHub</a></p>
+          Created by <a href="https://alshahriarsayon.vercel.app/" target="_blank" rel="noopener">Al Shahriar Sowan</a> · <a href="https://github.com/Alshahriar-07/seedcode-cli" target="_blank" rel="noopener">GitHub</a><br>
+          Vibe coded with GPT-5.5 + Claude Opus 4.8</p>
       </div>
       <nav aria-label="Product">
         <h4>Product</h4>
@@ -159,7 +159,7 @@
         <h4>Resources</h4>
         <a href="docs.html">Documentation</a>
         <a href="quickstart.html">Quick Start</a>
-        <a href="cli/" class="footer-sim-link">Interactive CLI Simulator <span aria-hidden="true">→</span></a>
+        <a href="https://seedcode-chat.vercel.app/" target="_blank" rel="noopener">Seed Code Chat <span aria-hidden="true">→</span></a>
         <a href="faq.html">FAQ</a>
         <a href="support.html">Support</a>
       </nav>
@@ -173,13 +173,9 @@
     </div>
     <div class="container footer-bottom">
       <p>© 2026 Eagox Studio · Seed Code CLI. All rights reserved.</p>
-      <p>Crafted for the terminal · v1.0.0 · <a href="https://github.com/Alshahriar-07/seedcode-cli/blob/main/LICENSE" rel="noopener">MIT License</a></p>
+      <p>Crafted for the terminal · v5.0.2 · <a href="https://github.com/Alshahriar-07/seedcode-cli/blob/main/LICENSE" rel="noopener">MIT License</a></p>
     </div>
   </footer>
-
-  <a href="cli/" class="cli-fab" aria-label="Open the live CLI simulator">
-    <span class="cli-fab-icon">🖥</span> Live CLI
-  </a>
 
   <!-- Motion libraries (Lenis, GSAP) are lazy-loaded by main.js after first paint -->
   <script src="js/main.js" defer></script>

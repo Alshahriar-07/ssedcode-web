@@ -11,7 +11,7 @@
   <link rel="author" href="https://alshahriarsayon.vercel.app/">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#09090B">
-  <link rel="canonical" href="https://seedcode-cli.vercel.app/privacy.html">
+  <link rel="canonical" href="https://seedcode-web.vercel.app/privacy.html">
 
   <link rel="icon" href="img/seedcode.ico" sizes="any">
   <link rel="icon" type="image/svg+xml" href="img/logo.svg">
@@ -22,12 +22,12 @@
   <meta property="og:site_name" content="Seed Code CLI">
   <meta property="og:title" content="Privacy Policy — Seed Code CLI">
   <meta property="og:description" content="Seed Code CLI privacy policy: no telemetry, no accounts, keys stored locally. Requests go directly to the AI provider you configure.">
-  <meta property="og:url" content="https://seedcode-cli.vercel.app/privacy.html">
-  <meta property="og:image" content="https://seedcode-cli.vercel.app/img/logo.png">
+  <meta property="og:url" content="https://seedcode-web.vercel.app/privacy.html">
+  <meta property="og:image" content="https://seedcode-web.vercel.app/img/logo.png">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Privacy Policy — Seed Code CLI">
   <meta name="twitter:description" content="Seed Code CLI privacy policy: no telemetry, no accounts, keys stored locally. Requests go directly to the AI provider you configure.">
-  <meta name="twitter:image" content="https://seedcode-cli.vercel.app/img/logo.png">
+  <meta name="twitter:image" content="https://seedcode-web.vercel.app/img/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,7 +59,6 @@
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="features.html">Features</a></li>
-        <li><a href="cli/">CLI Simulator <span class="badge-new">NEW</span></a></li>
         <li><a href="quickstart.html">Quick Start</a></li>
         <li><a href="download.html">Download</a></li>
         <li><a href="docs.html">Docs</a></li>
@@ -84,8 +83,8 @@
         <p>Seed Code CLI collects <strong>nothing</strong>. No telemetry, no analytics, no accounts, no tracking.</p>
         <h2>Your data</h2>
         <ul>
-          <li><strong>API keys</strong> are stored locally in <code>~/.seedcode/config.toml</code> on your machine and are only sent to the provider you configured.</li>
-          <li><strong>Prompts and responses</strong> travel directly between your machine and your chosen AI provider (OpenRouter, ZenMux, AeroLink, or your local Ollama instance). There are no Seed Code servers in between.</li>
+          <li><strong>API keys</strong> are stored locally in <code>~/.seedcode/config.json</code> on your machine and are only sent to the provider you configured.</li>
+          <li><strong>Prompts and responses</strong> travel directly between your machine and your chosen AI provider (OpenRouter, FreeModel, AeroLink, or your local Ollama instance). There are no Seed Code servers in between.</li>
           <li><strong>Conversation history</strong>, if enabled, lives only on your machine.</li>
         </ul>
         <h2>Third parties</h2>
@@ -107,7 +106,8 @@
         </a>
         <p class="footer-tag">The beautiful AI coding assistant for your terminal. Fast, elegant, and built for developers.</p>
         <p class="footer-credit">Designed &amp; Developed by <strong>Eagox Studio</strong><br>
-          Creator — <a href="https://alshahriarsayon.vercel.app/" target="_blank" rel="noopener">Al Shahriar Sowan</a> · <a href="https://github.com/Alshahriar-07/seedcode-cli" target="_blank" rel="noopener">GitHub</a></p>
+          Created by <a href="https://alshahriarsayon.vercel.app/" target="_blank" rel="noopener">Al Shahriar Sowan</a> · <a href="https://github.com/Alshahriar-07/seedcode-cli" target="_blank" rel="noopener">GitHub</a><br>
+          Vibe coded with GPT-5.5 + Claude Opus 4.8</p>
       </div>
       <nav aria-label="Product">
         <h4>Product</h4>
@@ -120,7 +120,7 @@
         <h4>Resources</h4>
         <a href="docs.html">Documentation</a>
         <a href="quickstart.html">Quick Start</a>
-        <a href="cli/" class="footer-sim-link">Interactive CLI Simulator <span aria-hidden="true">→</span></a>
+        <a href="https://seedcode-chat.vercel.app/" target="_blank" rel="noopener">Seed Code Chat <span aria-hidden="true">→</span></a>
         <a href="faq.html">FAQ</a>
         <a href="support.html">Support</a>
       </nav>
@@ -134,13 +134,9 @@
     </div>
     <div class="container footer-bottom">
       <p>© 2026 Eagox Studio · Seed Code CLI. All rights reserved.</p>
-      <p>Crafted for the terminal · v1.0.0 · <a href="https://github.com/Alshahriar-07/seedcode-cli/blob/main/LICENSE" rel="noopener">MIT License</a></p>
+      <p>Crafted for the terminal · v5.0.2 · <a href="https://github.com/Alshahriar-07/seedcode-cli/blob/main/LICENSE" rel="noopener">MIT License</a></p>
     </div>
   </footer>
-
-  <a href="cli/" class="cli-fab" aria-label="Open the live CLI simulator">
-    <span class="cli-fab-icon">💻</span> Live CLI
-  </a>
 
   <!-- Motion libraries (Lenis, GSAP) are lazy-loaded by main.js after first paint -->
   <script src="js/main.js" defer></script>

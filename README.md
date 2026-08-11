@@ -68,5 +68,5 @@ Note: the splash + intro play once per browser session (sessionStorage key
 ## Deployment
 
 Static files, no build step required for deploys. Canonical domain:
-`https://seedcode-cli.vercel.app/` — update in `scripts/build-pages.py`,
+`https://seedcode-web.vercel.app/` — update in `scripts/build-pages.py`,
 then regenerate, if the domain changes.

@@ -74,16 +74,18 @@
       if (finished) return;
       finished = true;
       sessionStorage.setItem("sc-intro", "1");
-      if (splash) { splash.classList.add("done"); setTimeout(() => splash.remove(), 800); }
+      if (splash) { splash.classList.add("done"); setTimeout(() => splash.remove(), 500); }
+      // Reveal the main UI immediately — it animates in beneath the intro's
+      // fade/glitch, so there is zero dead time between intro and page.
+      reveal();
       const close = () => {
         intro.classList.add("done");
-        reveal();
-        setTimeout(() => intro.remove(), 1000);
+        setTimeout(() => intro.remove(), 650);
       };
       if (skipGlitch || !motionOK) close();
       else {
         intro.classList.add("glitch");
-        setTimeout(close, 400);
+        setTimeout(close, 300);
       }
     };
 
@@ -98,8 +100,8 @@
       const wait = (ms) => new Promise((r) => setTimeout(r, ms));
       const BOOT = [
         ["ok", "✓ ", "core loaded", 150],
-        ["ok", "✓ ", "providers linked · openrouter · ollama", 170],
-        ["ok", "✓ ", "stream engine ready", 150],
+        ["ok", "✓ ", "5 providers linked · openrouter · freemodel · aerolink · ollama", 170],
+        ["ok", "✓ ", "code mode + assist tools ready", 150],
         ["dim", "", "gpu compositor · 60fps target", 140],
         ["ok", "✓ ", "terminal renderer initialized", 160],
       ];
@@ -118,26 +120,27 @@
           if (statusEl) statusEl.textContent = s;
         }
         splash.classList.add("done");                      // soft blur hand-off, intro already beneath
-        setTimeout(() => splash.remove(), 700);
-        await wait(200);
+        setTimeout(() => splash.remove(), 500);
+        await wait(40);
       };
 
       const runIntro = async () => {
-        await wait(380);                                   // black screen beat
+        await wait(240);                                   // black screen beat
         intro.classList.add("s1");                         // logo + metallic sheen
-        await wait(900);
+        await wait(820);
         intro.classList.add("s2");                         // typed brand name
-        for (const ch of "SeedBot CLI") {
+        const NAME = "Seed Code CLI";
+        for (const ch of NAME) {
           if (finished) return;
-          if (nameEl.textContent.length === 7) {
+          if (nameEl.textContent.length === NAME.length - 3) {
             // color the "CLI" part
             nameEl.insertAdjacentHTML("beforeend", "<span class='logo-cli'></span>");
           }
           const cliSpan = nameEl.querySelector(".logo-cli");
           (cliSpan || nameEl).append(ch);
-          await wait(64 + Math.random() * 50);
+          await wait(56 + Math.random() * 42);
         }
-        await wait(180);
+        await wait(160);
         intro.classList.add("s3");                         // diagnostics + progress
         let p = 0;
         for (const [cls, mark, text, d] of BOOT) {
@@ -158,7 +161,7 @@
         }
         fill.style.width = "100%";
         pct.textContent = "100%";
-        await wait(300);
+        await wait(60);
         finish();                                          // glitch → zoom reveal
       };
 
@@ -394,7 +397,7 @@
     raf = requestAnimationFrame(tick);
     window.addEventListener("pointermove", (e) => { mx = e.clientX; my = e.clientY; }, { passive: true });
     document.addEventListener("pointerover", (e) => {
-      ring.classList.toggle("hovering", !!e.target.closest("a, button, .term-chip, summary"));
+      ring.classList.toggle("hovering", !!e.target.closest("a, button, summary"));
     }, { passive: true });
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) { cancelAnimationFrame(raf); raf = 0; }
@@ -557,71 +560,22 @@
   } else revealEls.forEach(activate);
 
   /* ============================================================
-     Interactive terminal
-     ============================================================ */
-  const DEMOS = {
-    build: [
-      { t: "cmd", text: "seedcode", d: 650 },
-      { t: "out", parts: [["t-value", "Welcome back."]], d: 550 },
-      { t: "blank", d: 120 },
-      { t: "out", parts: [["t-label", "Provider "], ["t-prompt", "› "], ["t-value", "OpenRouter"]], d: 420 },
-      { t: "out", parts: [["t-label", "Model    "], ["t-prompt", "› "], ["t-value", "GLM 5.2"]], d: 420 },
-      { t: "blank", d: 150 },
-      { t: "typed", prefix: [["t-prompt", "› "]], text: "Build a REST API using FastAPI", cls: "t-cmd", d: 450 },
-      { t: "blank", d: 120 },
-      { t: "out", parts: [["t-dim", "Thinking…"]], d: 950 },
-      { t: "ok", text: "Planning", d: 500 },
-      { t: "ok", text: "Writing files", d: 500 },
-      { t: "ok", text: "Generating code", d: 500 },
-      { t: "ok", text: "Finished in 4.2s", d: 2400 },
-    ],
-    chat: [
-      { t: "cmd", text: "seedcode chat", d: 550 },
-      { t: "out", parts: [["t-dim", "Chat session started · streaming on"]], d: 500 },
-      { t: "blank", d: 120 },
-      { t: "typed", prefix: [["t-you", "you › "]], text: "explain async generators in Python", cls: "t-cmd", d: 420 },
-      { t: "blank", d: 150 },
-      { t: "stream", tag: "seedcode › ", lines: [
-        "An async generator combines async def with yield,",
-        "producing values you can iterate with async for.",
-        "Use it when items arrive over time — sockets,",
-        "queues, or paginated APIs.",
-      ], d: 2200 },
-    ],
-    doctor: [
-      { t: "cmd", text: "seedcode doctor", d: 600 },
-      { t: "ok", text: "Python 3.12 detected", d: 380 },
-      { t: "ok", text: "API key configured", d: 380 },
-      { t: "ok", text: "Network reachable (82 ms)", d: 380 },
-      { t: "ok", text: "Terminal supports truecolor", d: 380 },
-      { t: "out", parts: [["t-dim", "6/6 checks passed · environment healthy"]], d: 2400 },
-    ],
-    haiku: [
-      { t: "cmd", text: 'seedcode "write a haiku about git"', d: 600 },
-      { t: "blank", d: 150 },
-      { t: "stream", tag: "", lines: [
-        "branches drift apart",
-        "a merge brings them home again",
-        "conflicts, then release",
-      ], d: 2400 },
-    ],
-  };
-
-  /* ============================================================
-     Hero mini-simulator — auto-types real simulator commands
-     and streams compact answers, then loops. Also powers the
-     small sim-banner preview via [data-simpreview].
+     Hero mini-simulator — auto-types real Seed Code commands and
+     streams compact answers, then loops. Powers the animated
+     terminal in the hero via [data-minisim].
      ============================================================ */
   const MINISIM = [
     { cmd: "help", out: [
-      ["c", "Seed Code CLI — commands"],
-      ["g", "  help  about  features  demo  provider  model"],
-      ["g", "  neofetch  logo  theme  matrix  download  docs"],
+      ["c", "Seed Code CLI — v5.0.2 commands"],
+      ["g", "  /provider  /model  /apikey  /settings  /doctor"],
+      ["g", "  /agent  /tools  /index  /history  /version  /assist"],
       ["d", "  …or ask a natural question."],
     ]},
     { cmd: "features", out: [
-      ["ok", "Streaming responses"], ["ok", "OpenRouter · Ollama · ZenMux · AeroLink"],
-      ["ok", "Markdown + syntax highlighting"], ["ok", "Cross platform · themes · fast startup"],
+      ["ok", "Streaming responses with live markdown + highlighting"],
+      ["ok", "Five providers · OpenRouter · FreeModel · AeroLink · Ollama"],
+      ["ok", "Code Mode + /assist desktop control"],
+      ["ok", "One-click Windows installer · no Python required"],
     ]},
     { cmd: "what is seed code", out: [
       ["r2", "Seed Code CLI is an AI coding assistant that lives in"],
@@ -630,13 +584,14 @@
     ]},
     { cmd: "why is it free", out: [
       ["r2", "100% free & open source (MIT). Bring your own key —"],
-      ["r2", "47+ models are free via OpenRouter, or run Ollama"],
-      ["r2", "locally at zero cost."],
+      ["r2", "47+ models are free via OpenRouter, FreeModel keys are"],
+      ["r2", "free too, or run Ollama locally at zero cost."],
     ]},
-    { cmd: "show examples", out: [
-      ["g", '  $ seedcode "write a haiku about git"'],
-      ["d", "  branches drift apart / a merge brings them home"],
-      ["g", "  $ seedcode chat"], ["g", "  $ seedcode doctor"],
+    { cmd: "/assist", out: [
+      ["ok", "Assist Mode ON — AI + computer control"],
+      ["g", "  AI · files · terminal · git · browser · keyboard"],
+      ["g", "  mouse · windows · vision · OCR · automation"],
+      ["d", "  /assist off returns to plain chat."],
     ]},
   ];
 
@@ -718,138 +673,6 @@
 
   const miniEl = document.querySelector("[data-minisim]");
   if (miniEl) runMiniSim(miniEl, MINISIM);
-
-  const previewEl = document.querySelector("[data-simpreview]");
-  if (previewEl) {
-    runMiniSim(previewEl, [
-      { cmd: "neofetch", out: [
-        ["g", "  OS     : Seed Code Simulator"], ["g", "  Shell  : zsh (simulated)"],
-        ["g", "  Theme  : dark"], ["d", "  License: MIT"],
-      ]},
-      { cmd: "matrix", out: [["r2", "Wake up, Neo…"], ["d", "type matrix again to exit."]] },
-      { cmd: "theme hacker", out: [["ok", "Theme switched to hacker"]] },
-    ], { speed: 1.1 });
-  }
-
-  const termBody = document.querySelector("[data-terminal]");
-  if (termBody) {
-    const wait = (ms) => new Promise((r) => setTimeout(r, ms));
-    const span = (cls, text) => {
-      const s = document.createElement("span");
-      s.className = cls; s.textContent = text;
-      return s;
-    };
-    const cursor = document.createElement("span");
-    cursor.className = "t-cursor";
-
-    let session = 0, started = false;
-
-    const addLine = () => {
-      const line = document.createElement("div");
-      line.className = "t-line";
-      termBody.appendChild(line);
-      termBody.scrollTop = termBody.scrollHeight;
-      return line;
-    };
-
-    async function typeInto(line, cls, text, id) {
-      const target = span(cls, "");
-      line.insertBefore(target, cursor);
-      for (const ch of text) {
-        if (id !== session) return;
-        target.textContent += ch;
-        termBody.scrollTop = termBody.scrollHeight;
-        await wait(30 + Math.random() * 46);
-      }
-    }
-
-    async function streamInto(line, cls, text, id) {
-      const target = span(cls, "");
-      line.insertBefore(target, cursor);
-      for (const word of text.split(/(?<=\s)/)) {
-        if (id !== session) return;
-        target.textContent += word;
-        termBody.scrollTop = termBody.scrollHeight;
-        await wait(34);
-      }
-    }
-
-    async function play(name, loop) {
-      const id = ++session;
-      const script = DEMOS[name] || DEMOS.build;
-      termBody.textContent = "";
-
-      if (!motionOK) {
-        for (const step of script) {
-          const line = addLine();
-          if (step.t === "cmd") line.append(span("t-prompt", "❯ "), span("t-cmd", step.text));
-          else if (step.t === "typed") { step.prefix.forEach(([c, x]) => line.append(span(c, x))); line.append(span(step.cls, step.text)); }
-          else if (step.t === "ok") line.append(span("t-ok", "✓ "), span("t-value", step.text));
-          else if (step.t === "stream") {
-            if (step.tag) line.append(span("t-bot-tag", step.tag));
-            step.lines.forEach((l, i) => { (i === 0 ? line : addLine()).append(span("t-resp", l)); });
-          }
-          else if (step.t === "out") step.parts.forEach(([c, x]) => line.append(span(c, x)));
-        }
-        return;
-      }
-
-      for (const step of script) {
-        if (id !== session) return;
-        const line = addLine();
-        line.appendChild(cursor);
-
-        if (step.t === "cmd") {
-          line.insertBefore(span("t-prompt", "❯ "), cursor);
-          await typeInto(line, "t-cmd", step.text, id);
-        } else if (step.t === "typed") {
-          step.prefix.forEach(([c, x]) => line.insertBefore(span(c, x), cursor));
-          await typeInto(line, step.cls, step.text, id);
-        } else if (step.t === "ok") {
-          line.insertBefore(span("t-ok", "✓ "), cursor);
-          await streamInto(line, "t-value", step.text, id);
-        } else if (step.t === "stream") {
-          if (step.tag) line.insertBefore(span("t-bot-tag", step.tag), cursor);
-          for (let i = 0; i < step.lines.length; i++) {
-            if (id !== session) return;
-            const target = i === 0 ? line : addLine();
-            if (i > 0) target.appendChild(cursor);
-            await streamInto(target, "t-resp", step.lines[i], id);
-          }
-        } else if (step.t === "out") {
-          for (const [c, x] of step.parts) await streamInto(line, c, x, id);
-        }
-        if (id !== session) return;
-        termBody.scrollTop = termBody.scrollHeight;
-        await wait(step.d);
-      }
-
-      if (loop && id === session) {
-        await wait(1400);
-        if (id === session) play(name, true);
-      }
-    }
-
-    const chips = document.querySelectorAll(".term-chip");
-    chips.forEach((chip) => {
-      chip.addEventListener("click", () => {
-        chips.forEach((c) => c.classList.toggle("active", c === chip));
-        play(chip.getAttribute("data-demo"), chip.getAttribute("data-demo") === "build");
-      });
-    });
-
-    const start = () => {
-      if (started) return;
-      started = true;
-      play("build", true);
-    };
-    if ("IntersectionObserver" in window) {
-      const obs = new IntersectionObserver((entries) => {
-        if (entries.some((e) => e.isIntersecting)) { start(); obs.disconnect(); }
-      }, { threshold: 0.25 });
-      obs.observe(termBody);
-    } else start();
-  }
 
   /* ============================================================
      Docs sidebar highlight

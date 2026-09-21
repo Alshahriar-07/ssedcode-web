@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Features — Seed Code CLI v5.0.2 | Five Providers, Code Mode & Assist Mode</title>
-  <meta name="description" content="Everything a terminal-native developer needs: five independent AI providers, streaming responses, Code Mode, /assist desktop control, live model catalogues, Markdown rendering, and a one-click Windows installer.">
-  <meta name="keywords" content="Seed Code CLI, seedcode cli, AI CLI, terminal AI assistant, AI coding assistant, OpenRouter CLI, Ollama CLI, developer AI tools">
-  <meta name="author" content="Al Shahriar Sowan">
+  <title>Features — Seed Code CLI v6.2.5 | Six Providers, Code Mode & Assist Mode</title>
+  <meta name="description" content="Everything a terminal-native developer needs: six independent AI providers (Default needs no key), streaming responses, Code Mode, Agent Mode, /assist desktop control, live model catalogues, and one-command installers for Windows and Linux.">
+  <meta name="keywords" content="Seed Code CLI, seedcode cli, AI CLI, terminal AI assistant, AI coding assistant, Code Mode, Agent Mode, Assist Mode, OpenRouter CLI, Ollama CLI, developer AI tools">
+  <meta name="author" content="Al Shahriar Sayon">
   <meta name="publisher" content="Eagox Studio">
   <link rel="author" href="https://alshahriarsayon.vercel.app/">
   <meta name="robots" content="index, follow">
@@ -20,13 +20,13 @@
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Seed Code CLI">
-  <meta property="og:title" content="Features — Seed Code CLI v5.0.2 | Five Providers, Code Mode & Assist Mode">
-  <meta property="og:description" content="Everything a terminal-native developer needs: five independent AI providers, streaming responses, Code Mode, /assist desktop control, live model catalogues, Markdown rendering, and a one-click Windows installer.">
+  <meta property="og:title" content="Features — Seed Code CLI v6.2.5 | Six Providers, Code Mode & Assist Mode">
+  <meta property="og:description" content="Everything a terminal-native developer needs: six independent AI providers (Default needs no key), streaming responses, Code Mode, Agent Mode, /assist desktop control, live model catalogues, and one-command installers for Windows and Linux.">
   <meta property="og:url" content="https://seedcode-web.vercel.app/features.html">
   <meta property="og:image" content="https://seedcode-web.vercel.app/img/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Features — Seed Code CLI v5.0.2 | Five Providers, Code Mode & Assist Mode">
-  <meta name="twitter:description" content="Everything a terminal-native developer needs: five independent AI providers, streaming responses, Code Mode, /assist desktop control, live model catalogues, Markdown rendering, and a one-click Windows installer.">
+  <meta name="twitter:title" content="Features — Seed Code CLI v6.2.5 | Six Providers, Code Mode & Assist Mode">
+  <meta name="twitter:description" content="Everything a terminal-native developer needs: six independent AI providers (Default needs no key), streaming responses, Code Mode, Agent Mode, /assist desktop control, live model catalogues, and one-command installers for Windows and Linux.">
   <meta name="twitter:image" content="https://seedcode-web.vercel.app/img/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -82,8 +82,13 @@
         <div class="feature-grid stagger reveal">
           <article class="feature-card" data-tilt>
             <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v4M6.5 17l4-5.5M17.5 17l-4-5.5"/></svg></div>
-            <h3>Five Independent Providers</h3>
-            <p>OpenRouter, FreeModel Claude, FreeModel Codex, AeroLink, and local Ollama — each with its own API key, model, and history. Switch anytime with /provider.</p>
+            <h3>Six Independent Providers</h3>
+            <p>Default (no API key), OpenRouter, FreeModel Claude, FreeModel Codex, AeroLink, and local Ollama — each with its own key, model, and history. Switch anytime with /provider.</p>
+          </article>
+          <article class="feature-card" data-tilt>
+            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <h3>Works Out of the Box</h3>
+            <p>The built-in Default provider needs no API key — a fresh install can chat immediately. Bring your own key whenever you want more.</p>
           </article>
           <article class="feature-card" data-tilt>
             <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div>
@@ -93,52 +98,47 @@
           <article class="feature-card" data-tilt>
             <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg></div>
             <h3>Live Model Catalogue</h3>
-            <p>No model is ever hardcoded — pick from each provider's live catalogue, or let FreeModel auto-select the best one with /model auto.</p>
+            <p>No model is ever hardcoded — browse each provider's live catalogue with /model, or let FreeModel Auto pick the best one per request.</p>
           </article>
           <article class="feature-card" data-tilt>
             <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 6-6 6 6 6"/><path d="m16 6 6 6-6 6"/></svg></div>
             <h3>Code Mode</h3>
-            <p>Project-aware coding inside your IDE workflow — work with project files, edit code, and drive development workflows with AI-assisted programming.</p>
+            <p>Workspace-aware coding agent: /codemode on turns your project into the workspace with persistent .seedcode memory, an incremental index, and permission-gated edits.</p>
           </article>
           <article class="feature-card" data-tilt>
             <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
             <h3>Assist Mode · /assist</h3>
-            <p>Desktop and computer control with AI-assisted actions — browser, keyboard, mouse, windows, and vision for tasks beyond code editing.</p>
+            <p>The unified AI + computer-control mode: filesystem, terminal, git, browser, keyboard, mouse, windows, vision, and OCR behind one switch.</p>
           </article>
           <article class="feature-card" data-tilt>
             <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4.5 4.5 0 0 0 6 6L14 19l-4.5 1 1-4.5z"/><path d="M7 3h.01M11 3h.01M15 3h.01"/></svg></div>
             <h3>Agent Tools</h3>
-            <p>Read, edit, search, and run commands in your project — /tools lists capabilities, /index shows the project tree, /permission sets access levels.</p>
+            <p>The agent reads, edits, searches, and runs commands in your project — /tools lists capabilities, /index shows the project tree, /permission sets access levels.</p>
+          </article>
+          <article class="feature-card" data-tilt>
+            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><path d="m7 5h3a2 2 0 0 1 2 2v4M17 7h-3a2 2 0 0 0-2 2"/></svg></div>
+            <h3>Git Workflows</h3>
+            <p>Status, diff, log, commit, push, and pull as first-class agent tools — with read operations safe in every permission mode and mutations gated.</p>
           </article>
           <article class="feature-card" data-tilt>
             <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
             <h3>Conversation Memory</h3>
-            <p>Session memory with auto-saved history — /history lists saved conversations, /reset starts fresh. History is stored per provider.</p>
+            <p>Session memory with auto-saved history — /history lists saved conversations per provider, /reset starts fresh.</p>
           </article>
           <article class="feature-card" data-tilt>
-            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h5"/></svg></div>
-            <h3>Markdown Rendering</h3>
-            <p>Rich Markdown rendered directly in your terminal — headings, lists, tables, links, and highlighted code blocks included.</p>
+            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 9 3 3-3 3"/><path d="M13 15h4"/></svg></div>
+            <h3>Terminal Control</h3>
+            <p>Commands stream output live while running, capture stderr, report exit codes, and kill the whole process tree on timeout or Ctrl+C.</p>
           </article>
           <article class="feature-card" data-tilt>
-            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-            <h3>Windows Installer</h3>
-            <p>One-click seedcode-cli-setup.exe — installs Seed Code, adds seedcode to PATH, creates Start Menu shortcuts. No Python required.</p>
+            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/></svg></div>
+            <h3>Permission System</h3>
+            <p>read_only, workspace, desktop, and full_system levels — every tool call passes the gate, dangerous actions confirm, and .seedcode memory refuses secret-looking fields.</p>
           </article>
           <article class="feature-card" data-tilt>
             <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
             <h3>Diagnostics</h3>
             <p>/doctor checks config, network, and provider health in one pass — with quiet logs at ~/.seedcode/logs/seedcode.log.</p>
-          </article>
-          <article class="feature-card" data-tilt>
-            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/></svg></div>
-            <h3>Secure by Design</h3>
-            <p>API keys are saved only after real authenticated validation, environment variables override stored keys, and keys or content never reach the logs.</p>
-          </article>
-          <article class="feature-card" data-tilt>
-            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg></div>
-            <h3>Open Source</h3>
-            <p>MIT licensed and developed in the open. Read the source, file issues, and ship improvements.</p>
           </article>
         </div>
       </div>
@@ -166,9 +166,8 @@
           Seed&nbsp;Code&nbsp;<span class="logo-cli">CLI</span>
         </a>
         <p class="footer-tag">The beautiful AI coding assistant for your terminal. Fast, elegant, and built for developers.</p>
-        <p class="footer-credit">Designed &amp; Developed by <strong>Eagox Studio</strong><br>
-          Created by <a href="https://alshahriarsayon.vercel.app/" target="_blank" rel="noopener">Al Shahriar Sowan</a> · <a href="https://github.com/Alshahriar-07/seedcode-cli" target="_blank" rel="noopener">GitHub</a><br>
-          Vibe coded with GPT-5.5 + Claude Opus 4.8</p>
+        <p class="footer-credit">Built by <a href="https://alshahriarsayon.vercel.app/" target="_blank" rel="noopener"><strong>Al Shahriar Sayon</strong></a> · Part of the <a href="https://eagoxstudio.vercel.app/" target="_blank" rel="noopener">Eagox Studio</a> ecosystem<br>
+          <a href="https://github.com/Alshahriar-07/seedcode-cli" target="_blank" rel="noopener">GitHub</a> · <a href="https://github.com/Alshahriar-07/seedcode-cli/releases/tag/v6.2.5" target="_blank" rel="noopener">Releases</a> · v6.2.5</p>
       </div>
       <nav aria-label="Product">
         <h4>Product</h4>
@@ -181,7 +180,8 @@
         <h4>Resources</h4>
         <a href="docs.html">Documentation</a>
         <a href="quickstart.html">Quick Start</a>
-        <a href="https://seedcode-chat.vercel.app/" target="_blank" rel="noopener">Seed Code Chat <span aria-hidden="true">→</span></a>
+        <a href="https://seedcode-chat.vercel.app/" target="_blank" rel="noopener">Seed Code Chat Web <span aria-hidden="true">→</span></a>
+        <a href="https://seedcode-app.vercel.app/" target="_blank" rel="noopener">Seed Code Chat Android <span aria-hidden="true">→</span></a>
         <a href="faq.html">FAQ</a>
         <a href="support.html">Support</a>
       </nav>
@@ -195,7 +195,7 @@
     </div>
     <div class="container footer-bottom">
       <p>© 2026 Eagox Studio · Seed Code CLI. All rights reserved.</p>
-      <p>Crafted for the terminal · v5.0.2 · <a href="https://github.com/Alshahriar-07/seedcode-cli/blob/main/LICENSE" rel="noopener">MIT License</a></p>
+      <p>Crafted for the terminal · <a href="https://github.com/Alshahriar-07/seedcode-cli/releases/tag/v6.2.5" rel="noopener">v6.2.5</a> · <a href="https://github.com/Alshahriar-07/seedcode-cli/blob/main/LICENSE" rel="noopener">MIT License</a></p>
     </div>
   </footer>
 

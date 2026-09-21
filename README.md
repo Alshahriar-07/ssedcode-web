@@ -1,37 +1,37 @@
 # Seed Code CLI — Cinematic Website
 
-Official multi-page website for Seed Code CLI, the beautiful AI coding assistant
-for the terminal. Designed & developed by **Eagox Studio** · Creator —
-**Al Shahriar Sowan** (https://alshahriarsayon.vercel.app/).
+Official multi-page website for **Seed Code CLI v6.2.5**, the beautiful AI coding
+assistant for the terminal. Built by **Al Shahriar Sayon**
+(https://alshahriarsayon.vercel.app/) · Part of the **Eagox Studio** ecosystem
+(https://eagoxstudio.vercel.app/).
 
-A desktop-first cinematic experience: splash screen + AI boot intro, a quiet
-layered background (subtle grid, soft radial lighting, vignette, film grain),
-GSAP character-level animation, cinematic page transitions, custom cursor, and a
-fully scripted interactive terminal.
+A desktop-first cinematic experience: splash screen, a quiet layered background
+(subtle grid, soft radial lighting, vignette, film grain), GSAP character-level
+animation, cinematic page transitions, custom cursor, and a fully scripted
+interactive terminal.
 
 ## Structure
 
 ```
-Seedcode-cli.io/
-├── index.html        # Home — intro boot sequence, hero + terminal, stats, teaser, CTA
+ssedcode-web/
+├── index.html        # Home — splash, hero + terminal, stats, teaser, CTA
 ├── features.html     # 12 feature cards, tilt + glow
-├── quickstart.html   # 3-step guide + command panel (slide-in left/right)
-├── download.html     # Windows .exe, MEGA ZIP (Linux/macOS), pip/uv
+├── quickstart.html   # 3-step guide + command panel (official install commands)
+├── download.html     # Official Windows irm|iex and Linux curl|bash installers
 ├── docs.html         # Sidebar docs: install, config, providers, commands
 ├── gallery.html      # 6 mini-terminal session screens
-├── changelog.html    # Timeline: v1.0.0 shipped + roadmap
+├── changelog.html    # Timeline: v6.2.5 shipped + roadmap
 ├── faq.html          # Accordion + FAQPage JSON-LD
 ├── about.html        # Project story, Eagox Studio
-├── portfolio.html    # Al Shahriar Sowan — projects, skills, experience, contact
+├── portfolio.html    # Al Shahriar Sayon — projects, skills, experience, contact
 ├── support.html      # Help paths, community links
 ├── privacy.html      # No-telemetry policy
 ├── terms.html        # MIT terms
 ├── 404.html          # Glitch 404
 ├── css/style.css     # Design system + motion layer
-├── js/main.js        # Cinematic engine (splash, intro, transitions, GSAP, cursor, terminal…)
+├── js/main.js        # Cinematic engine (splash, transitions, GSAP, cursor, terminal…)
 ├── scripts/build-pages.py  # Page generator — edit content here, then re-run
 ├── img/              # seedcode.ico (brand — do not replace), logo.svg/png
-├── Files/SeedCodeSetup.exe # Windows installer (~22 MB)
 ├── site.webmanifest · sitemap.xml · robots.txt · google*.html
 ```
 
@@ -45,7 +45,17 @@ python scripts/build-pages.py
 ```
 
 Hand-editing the generated HTML works too, but the build script is the source
-of truth for anything shared.
+of truth for anything shared — including the version constant (`VERSION`), the
+official install commands (`WIN_CMD` / `LINUX_CMD`), the release URL, and the
+author/company links.
+
+## Loading flow
+
+`index.html` shows the splash screen (logo + tagline + status, ~1.3s, once per
+session via the `sc-intro` sessionStorage key), then hands off straight to the
+homepage — the UI builds itself beneath the splash's blur fade. There is no
+second loading screen. Internal navigation keeps the cinematic page-transition
+system (wipe / slide / circle overlays in `.pt-overlay`).
 
 ## Motion stack
 
@@ -59,10 +69,10 @@ of truth for anything shared.
 ## Local preview
 
 ```bash
-python -m http.server 8080 --directory D:/Seedcode-cli.io
+python -m http.server 8080 --directory <path-to-this-folder>
 ```
 
-Note: the splash + intro play once per browser session (sessionStorage key
+Note: the splash plays once per browser session (sessionStorage key
 `sc-intro`); clear it or use a fresh tab to replay.
 
 ## Deployment

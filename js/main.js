@@ -1,7 +1,7 @@
 /* ============================================================
    Seed Code CLI — main.js · cinematic engine
    ------------------------------------------------------------
-   · Splash screen → intro sequence (home, once/session, skippable)
+   · Splash screen (home, once/session) → straight to the page
    · Cinematic page transitions (wipe / slide / circle variants)
    · Lenis smooth scrolling + GSAP ScrollTrigger (CDN, guarded —
      everything degrades to native behavior if they fail to load)
@@ -46,71 +46,45 @@
   }
 
   /* ============================================================
-     Splash + intro sequence (home only, once per session)
+     Splash screen (home only, once per session)
      splash: CSS-animated from first paint (see inline head CSS);
      JS only cycles the status text and ends it ~1.3s after
-     navigation start, then:
-     intro: black → logo+sheen → typed name → boot diagnostics →
-     loading % → glitch burst → camera zoom → UI builds itself
+     navigation start, then hands off straight to the homepage —
+     the UI builds itself beneath the splash's blur fade.
      Repeat visits: the inline head script tags <html>.sc-seen so
-     both are display:none before paint — here we just remove them.
+     the splash is display:none before paint — here we just
+     remove it.
      ============================================================ */
-  const intro = document.querySelector(".intro");
   const splash = document.querySelector(".splash");
-  if (intro) {
+  if (splash) {
     const seen = sessionStorage.getItem("sc-intro");
-    const nameEl = intro.querySelector(".intro-name-text");
-    const bootEl = intro.querySelector(".intro-boot");
-    const fill = intro.querySelector(".intro-progress-fill");
-    const pct = intro.querySelector(".intro-progress-pct");
-    let finished = false;
-
-    const reveal = () => {
-      document.querySelector("main")?.classList.add("cinema-in");
-      document.querySelectorAll(".build-in").forEach((el) => el.classList.add("built"));
-    };
-
-    const finish = (skipGlitch) => {
-      if (finished) return;
-      finished = true;
-      sessionStorage.setItem("sc-intro", "1");
-      if (splash) { splash.classList.add("done"); setTimeout(() => splash.remove(), 500); }
-      // Reveal the main UI immediately — it animates in beneath the intro's
-      // fade/glitch, so there is zero dead time between intro and page.
-      reveal();
-      const close = () => {
-        intro.classList.add("done");
-        setTimeout(() => intro.remove(), 650);
-      };
-      if (skipGlitch || !motionOK) close();
-      else {
-        intro.classList.add("glitch");
-        setTimeout(close, 300);
-      }
-    };
-
     if (seen || !motionOK) {
-      splash?.remove();
-      intro.remove();
+      splash.remove();
       document.querySelectorAll(".build-in").forEach((el) => el.classList.add("built"));
     } else {
       document.body.style.overflow = "hidden";
-      intro.addEventListener("transitionend", () => { document.body.style.overflow = ""; }, { once: true });
 
-      const wait = (ms) => new Promise((r) => setTimeout(r, ms));
-      const BOOT = [
-        ["ok", "✓ ", "core loaded", 150],
-        ["ok", "✓ ", "5 providers linked · openrouter · freemodel · aerolink · ollama", 170],
-        ["ok", "✓ ", "code mode + assist tools ready", 150],
-        ["dim", "", "gpu compositor · 60fps target", 140],
-        ["ok", "✓ ", "terminal renderer initialized", 160],
-      ];
+      const reveal = () => {
+        document.querySelector("main")?.classList.add("cinema-in");
+        document.querySelectorAll(".build-in").forEach((el) => el.classList.add("built"));
+      };
+
+      let finished = false;
+      const finish = () => {
+        if (finished) return;
+        finished = true;
+        sessionStorage.setItem("sc-intro", "1");
+        splash.classList.add("done");                      // soft blur hand-off
+        setTimeout(() => splash.remove(), 500);
+        reveal();                                          // homepage builds beneath the fade
+        document.body.style.overflow = "";                 // scrolling unlocked right away
+      };
 
       // splash: already animating via CSS since first paint — JS only
       // cycles the status text and hands off ~1.3s after nav start.
-      const runSplash = async () => {
-        if (!splash) return;
-        const statusEl = splash.querySelector(".splash-status-text");
+      const statusEl = splash.querySelector(".splash-status-text");
+      const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+      (async () => {
         const elapsed = performance.now();                 // time already on screen
         const remaining = Math.max(0, 1300 - elapsed);
         const step = remaining / 3;
@@ -119,63 +93,12 @@
           await wait(step);
           if (statusEl) statusEl.textContent = s;
         }
-        splash.classList.add("done");                      // soft blur hand-off, intro already beneath
-        setTimeout(() => splash.remove(), 500);
-        await wait(40);
-      };
-
-      const runIntro = async () => {
-        await wait(240);                                   // black screen beat
-        intro.classList.add("s1");                         // logo + metallic sheen
-        await wait(820);
-        intro.classList.add("s2");                         // typed brand name
-        const NAME = "Seed Code CLI";
-        for (const ch of NAME) {
-          if (finished) return;
-          if (nameEl.textContent.length === NAME.length - 3) {
-            // color the "CLI" part
-            nameEl.insertAdjacentHTML("beforeend", "<span class='logo-cli'></span>");
-          }
-          const cliSpan = nameEl.querySelector(".logo-cli");
-          (cliSpan || nameEl).append(ch);
-          await wait(56 + Math.random() * 42);
-        }
-        await wait(160);
-        intro.classList.add("s3");                         // diagnostics + progress
-        let p = 0;
-        for (const [cls, mark, text, d] of BOOT) {
-          if (finished) return;
-          const line = document.createElement("div");
-          if (mark) {
-            const ok = document.createElement("span");
-            ok.className = cls; ok.textContent = mark;
-            line.append(ok);
-          }
-          line.append(Object.assign(document.createElement("span"), { className: cls === "dim" ? "dim" : "", textContent: text }));
-          bootEl.append(line);
-          p += 19;
-          const shown = Math.min(p, 100);
-          fill.style.width = shown + "%";
-          pct.textContent = shown + "%";
-          await wait(d);
-        }
-        fill.style.width = "100%";
-        pct.textContent = "100%";
-        await wait(60);
-        finish();                                          // glitch → zoom reveal
-      };
-
-      (async () => {
-        await runSplash();                                 // splash → intro → home
-        if (!finished) await runIntro();
+        finish();
       })();
 
-      intro.querySelector(".intro-skip")?.addEventListener("click", () => finish(true));
-      document.addEventListener("keydown", (e) => { if (e.key === "Escape") finish(true); }, { once: true });
-      setTimeout(() => finish(true), 7000);                // hard cap: splash ~1.3s + intro ~5s
+      setTimeout(finish, 4000);                            // hard cap: splash ~1.3s
     }
   } else {
-    splash?.remove();
     document.querySelectorAll(".build-in").forEach((el) => el.classList.add("built"));
   }
 
@@ -566,16 +489,16 @@
      ============================================================ */
   const MINISIM = [
     { cmd: "help", out: [
-      ["c", "Seed Code CLI — v5.0.2 commands"],
+      ["c", "Seed Code CLI — v6.2.5 commands"],
       ["g", "  /provider  /model  /apikey  /settings  /doctor"],
-      ["g", "  /agent  /tools  /index  /history  /version  /assist"],
+      ["g", "  /mode  /codemode  /assist  /tools  /index  /history"],
       ["d", "  …or ask a natural question."],
     ]},
     { cmd: "features", out: [
       ["ok", "Streaming responses with live markdown + highlighting"],
-      ["ok", "Five providers · OpenRouter · FreeModel · AeroLink · Ollama"],
+      ["ok", "Six providers · Default · OpenRouter · FreeModel · Ollama"],
       ["ok", "Code Mode + /assist desktop control"],
-      ["ok", "One-click Windows installer · no Python required"],
+      ["ok", "One-line installers for Windows & Linux · no Python"],
     ]},
     { cmd: "what is seed code", out: [
       ["r2", "Seed Code CLI is an AI coding assistant that lives in"],
@@ -583,9 +506,9 @@
       ["r2", "of your choice, rendered beautifully."],
     ]},
     { cmd: "why is it free", out: [
-      ["r2", "100% free & open source (MIT). Bring your own key —"],
-      ["r2", "47+ models are free via OpenRouter, FreeModel keys are"],
-      ["r2", "free too, or run Ollama locally at zero cost."],
+      ["r2", "Start instantly on the built-in Default provider —"],
+      ["r2", "no API key needed. 45+ models are free via OpenRouter,"],
+      ["r2", "FreeModel keys are free too, or run Ollama locally."],
     ]},
     { cmd: "/assist", out: [
       ["ok", "Assist Mode ON — AI + computer control"],

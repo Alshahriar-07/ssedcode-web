@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Changelog & Roadmap — Seed Code CLI</title>
-  <meta name="description" content="Seed Code CLI version history and roadmap: what shipped in v5.0.2 and what's coming — plugins, MCP, voice, memory, and a desktop app.">
-  <meta name="keywords" content="Seed Code CLI, seedcode cli, AI CLI, terminal AI assistant, AI coding assistant, OpenRouter CLI, Ollama CLI, developer AI tools">
-  <meta name="author" content="Al Shahriar Sowan">
+  <meta name="description" content="Seed Code CLI version history and roadmap: what shipped in v6.2.5 and what's coming — plugins, MCP, voice, memory, and a desktop app.">
+  <meta name="keywords" content="Seed Code CLI, seedcode cli, AI CLI, terminal AI assistant, AI coding assistant, Code Mode, Agent Mode, Assist Mode, OpenRouter CLI, Ollama CLI, developer AI tools">
+  <meta name="author" content="Al Shahriar Sayon">
   <meta name="publisher" content="Eagox Studio">
   <link rel="author" href="https://alshahriarsayon.vercel.app/">
   <meta name="robots" content="index, follow">
@@ -21,12 +21,12 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Seed Code CLI">
   <meta property="og:title" content="Changelog & Roadmap — Seed Code CLI">
-  <meta property="og:description" content="Seed Code CLI version history and roadmap: what shipped in v5.0.2 and what's coming — plugins, MCP, voice, memory, and a desktop app.">
+  <meta property="og:description" content="Seed Code CLI version history and roadmap: what shipped in v6.2.5 and what's coming — plugins, MCP, voice, memory, and a desktop app.">
   <meta property="og:url" content="https://seedcode-web.vercel.app/changelog.html">
   <meta property="og:image" content="https://seedcode-web.vercel.app/img/logo.png">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Changelog & Roadmap — Seed Code CLI">
-  <meta name="twitter:description" content="Seed Code CLI version history and roadmap: what shipped in v5.0.2 and what's coming — plugins, MCP, voice, memory, and a desktop app.">
+  <meta name="twitter:description" content="Seed Code CLI version history and roadmap: what shipped in v6.2.5 and what's coming — plugins, MCP, voice, memory, and a desktop app.">
   <meta name="twitter:image" content="https://seedcode-web.vercel.app/img/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -82,14 +82,23 @@
         <div class="timeline">
           <h2 class="timeline-heading reveal">Shipped</h2>
           <div class="timeline-item is-current reveal">
-            <h3>v5.0.2 <span class="tag tag-latest">Latest</span> <span class="changelog-date">2026</span></h3>
+            <h3><a href="https://github.com/Alshahriar-07/seedcode-cli/releases/tag/v6.2.5" target="_blank" rel="noopener">v6.2.5</a> <span class="tag tag-latest">Latest</span> <span class="changelog-date">2026</span></h3>
             <ul>
-              <li><strong>Five providers</strong> — OpenRouter, FreeModel Claude, FreeModel Codex, AeroLink, and local Ollama — each with its own key, model, and history</li>
-              <li><strong>/assist</strong> — Assist Mode with full computer control: browser, keyboard, mouse, windows, vision, OCR, and desktop automation</li>
-              <li><strong>Agent Mode</strong> — the AI reads, edits, searches, and runs commands in your project, with read-only, workspace, and full-access permission levels</li>
-              <li><strong>Streaming</strong> — live Markdown with syntax-highlighted code blocks in every response</li>
-              <li><strong>Conversation memory</strong> — history auto-saved per provider, browsable with /history</li>
-              <li><strong>Windows installer</strong> — one-click seedcode-cli-setup.exe: PATH integration, Start Menu shortcuts, no Python required</li>
+              <li><strong>Six providers</strong> — the built-in <strong>Default</strong> connection (no API key) joins OpenRouter, FreeModel Claude, FreeModel Codex, AeroLink, and local Ollama as a first-class, fully separated provider</li>
+              <li><strong>Works out of the box</strong> — a fresh install ships on Default and can chat immediately, no key or signup</li>
+              <li><strong>Assist Mode</strong> — unified AI + computer control: filesystem, terminal, git, browser, keyboard, mouse, windows, vision, OCR, and desktop automation</li>
+              <li><strong>Code Mode</strong> — workspace-aware coding with persistent <code>.seedcode</code> project memory, an incremental index, and <code>/codemode on|off|status</code></li>
+              <li><strong>Credential isolation</strong> — every provider keeps its own key slot; the built-in credential is never copied into another provider's configuration</li>
+              <li><strong>Terminal control</strong> — live streaming output, stderr capture, exit codes, bounded timeouts, and process-tree cancellation</li>
+              <li><strong>Installer-based distribution</strong> — official one-line IRM installers for Windows and Linux with SHA256 verification; <code>seedcode --version</code> prints a machine-parseable line</li>
+            </ul>
+          </div>
+          <div class="timeline-item reveal">
+            <h3>v6.2.0 <span class="changelog-date">2026</span></h3>
+            <ul>
+              <li>Code Mode introduced — workspace-aware agent sessions with project memory and incremental indexing</li>
+              <li>Unified permission system — read_only / workspace / desktop / full_system levels with per-action confirmation</li>
+              <li>Live terminal output streaming and process-tree cancellation</li>
             </ul>
           </div>
           <div class="timeline-item reveal">
@@ -97,7 +106,7 @@
             <ul>
               <li>The original Seed Code CLI launch — interactive terminal experience with streaming responses</li>
               <li>Provider support — OpenRouter, AeroLink, and local Ollama</li>
-              <li>Themes — Midnight, Paper, Ember, and Terminal Classic</li>
+              <li>Themes — Seed Green, Forest, Ocean, Dusk, Ember, Monochrome</li>
             </ul>
           </div>
 
@@ -115,9 +124,9 @@
       <div class="container">
         <div class="cta reveal-scale">
           <h2>Help shape the roadmap.</h2>
-          <p>Feature requests, bug reports, and pull requests are all welcome.</p>
+          <p>Feature requests and bug reports are always welcome on GitHub.</p>
           <div class="hero-actions">
-            <a href="https://github.com/Alshahriar-07/seedcode-cli" class="btn btn-primary btn-lg" rel="noopener" data-magnetic>Contribute on GitHub</a>
+            <a href="https://github.com/Alshahriar-07/seedcode-cli/issues" class="btn btn-primary btn-lg" rel="noopener" data-magnetic>Open an Issue</a>
             <a href="download.html" class="btn btn-secondary btn-lg" data-magnetic>Get Seed Code CLI</a>
           </div>
         </div>
@@ -133,9 +142,8 @@
           Seed&nbsp;Code&nbsp;<span class="logo-cli">CLI</span>
         </a>
         <p class="footer-tag">The beautiful AI coding assistant for your terminal. Fast, elegant, and built for developers.</p>
-        <p class="footer-credit">Designed &amp; Developed by <strong>Eagox Studio</strong><br>
-          Created by <a href="https://alshahriarsayon.vercel.app/" target="_blank" rel="noopener">Al Shahriar Sowan</a> · <a href="https://github.com/Alshahriar-07/seedcode-cli" target="_blank" rel="noopener">GitHub</a><br>
-          Vibe coded with GPT-5.5 + Claude Opus 4.8</p>
+        <p class="footer-credit">Built by <a href="https://alshahriarsayon.vercel.app/" target="_blank" rel="noopener"><strong>Al Shahriar Sayon</strong></a> · Part of the <a href="https://eagoxstudio.vercel.app/" target="_blank" rel="noopener">Eagox Studio</a> ecosystem<br>
+          <a href="https://github.com/Alshahriar-07/seedcode-cli" target="_blank" rel="noopener">GitHub</a> · <a href="https://github.com/Alshahriar-07/seedcode-cli/releases/tag/v6.2.5" target="_blank" rel="noopener">Releases</a> · v6.2.5</p>
       </div>
       <nav aria-label="Product">
         <h4>Product</h4>
@@ -148,7 +156,8 @@
         <h4>Resources</h4>
         <a href="docs.html">Documentation</a>
         <a href="quickstart.html">Quick Start</a>
-        <a href="https://seedcode-chat.vercel.app/" target="_blank" rel="noopener">Seed Code Chat <span aria-hidden="true">→</span></a>
+        <a href="https://seedcode-chat.vercel.app/" target="_blank" rel="noopener">Seed Code Chat Web <span aria-hidden="true">→</span></a>
+        <a href="https://seedcode-app.vercel.app/" target="_blank" rel="noopener">Seed Code Chat Android <span aria-hidden="true">→</span></a>
         <a href="faq.html">FAQ</a>
         <a href="support.html">Support</a>
       </nav>
@@ -162,7 +171,7 @@
     </div>
     <div class="container footer-bottom">
       <p>© 2026 Eagox Studio · Seed Code CLI. All rights reserved.</p>
-      <p>Crafted for the terminal · v5.0.2 · <a href="https://github.com/Alshahriar-07/seedcode-cli/blob/main/LICENSE" rel="noopener">MIT License</a></p>
+      <p>Crafted for the terminal · <a href="https://github.com/Alshahriar-07/seedcode-cli/releases/tag/v6.2.5" rel="noopener">v6.2.5</a> · <a href="https://github.com/Alshahriar-07/seedcode-cli/blob/main/LICENSE" rel="noopener">MIT License</a></p>
     </div>
   </footer>
 

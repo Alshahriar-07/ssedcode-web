@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Quick Start — Seed Code CLI | Zero to AI in Seconds</title>
-  <meta name="description" content="Install Seed Code CLI with pip or uv, configure a provider with the guided wizard, and launch your first AI session — all in under a minute.">
-  <meta name="keywords" content="Seed Code CLI, seedcode cli, AI CLI, terminal AI assistant, AI coding assistant, OpenRouter CLI, Ollama CLI, developer AI tools">
-  <meta name="author" content="Al Shahriar Sowan">
+  <meta name="description" content="Install Seed Code CLI with the official one-line installer for Windows or Linux, launch seedcode, and start your first AI session immediately — no API key needed.">
+  <meta name="keywords" content="Seed Code CLI, seedcode cli, AI CLI, terminal AI assistant, AI coding assistant, Code Mode, Agent Mode, Assist Mode, OpenRouter CLI, Ollama CLI, developer AI tools">
+  <meta name="author" content="Al Shahriar Sayon">
   <meta name="publisher" content="Eagox Studio">
   <link rel="author" href="https://alshahriarsayon.vercel.app/">
   <meta name="robots" content="index, follow">
@@ -21,12 +21,12 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Seed Code CLI">
   <meta property="og:title" content="Quick Start — Seed Code CLI | Zero to AI in Seconds">
-  <meta property="og:description" content="Install Seed Code CLI with pip or uv, configure a provider with the guided wizard, and launch your first AI session — all in under a minute.">
+  <meta property="og:description" content="Install Seed Code CLI with the official one-line installer for Windows or Linux, launch seedcode, and start your first AI session immediately — no API key needed.">
   <meta property="og:url" content="https://seedcode-web.vercel.app/quickstart.html">
   <meta property="og:image" content="https://seedcode-web.vercel.app/img/logo.png">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Quick Start — Seed Code CLI | Zero to AI in Seconds">
-  <meta name="twitter:description" content="Install Seed Code CLI with pip or uv, configure a provider with the guided wizard, and launch your first AI session — all in under a minute.">
+  <meta name="twitter:description" content="Install Seed Code CLI with the official one-line installer for Windows or Linux, launch seedcode, and start your first AI session immediately — no API key needed.">
   <meta name="twitter:image" content="https://seedcode-web.vercel.app/img/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -73,7 +73,7 @@
       <div class="container">
         <span class="eyebrow">Quick Start</span>
         <h1 data-chars>Up and running in seconds</h1>
-        <p>Three commands from zero to your first AI conversation. Zero configuration required to start.</p>
+        <p>One command to install, one command to launch — and the built-in Default provider needs no API key.</p>
       </div>
     </section>
 
@@ -84,17 +84,20 @@
             <div class="qs-step">
               <span class="qs-num">1</span>
               <div class="qs-body">
-                <h3>Install</h3>
-                <div class="code-block"><code>pip install seedcode-cli</code><button class="copy-btn" data-copy="pip install seedcode-cli" aria-label="Copy command"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span class="copy-label">Copy</span></button></div>
-                <p class="qs-note">Prefer isolation? <code>uv tool install seedcode-cli</code> works too.</p>
+                <h3>Install — Windows</h3>
+                <div class="code-block"><code>irm https://seedcode-cli.vercel.app/install.ps1 | iex</code><button class="copy-btn" data-copy="irm https://seedcode-cli.vercel.app/install.ps1 | iex" aria-label="Copy command"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span class="copy-label">Copy</span></button></div>
+                <p class="qs-note">PowerShell 5.1+. Downloads the official release, verifies its SHA256, installs per-user, and adds <code>seedcode</code> to your PATH.</p>
+                <h3 class="qs-linux">Install — Linux</h3>
+                <div class="code-block"><code>curl -fsSL https://seedcode-cli.vercel.app/install.sh | bash</code><button class="copy-btn" data-copy="curl -fsSL https://seedcode-cli.vercel.app/install.sh | bash" aria-label="Copy command"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span class="copy-label">Copy</span></button></div>
+                <p class="qs-note">Any bash shell — also works on macOS.</p>
               </div>
             </div>
             <div class="qs-step">
               <span class="qs-num">2</span>
               <div class="qs-body">
-                <h3>Launch &amp; set up</h3>
+                <h3>Launch</h3>
                 <div class="code-block"><code>seedcode</code><button class="copy-btn" data-copy="seedcode" aria-label="Copy command"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span class="copy-label">Copy</span></button></div>
-                <p class="qs-note">First launch runs guided setup — provider, API key, model — until your first chat is ready. Keys are validated before they are saved.</p>
+                <p class="qs-note">Open a <em>new</em> terminal after installing so PATH changes apply. You land on the startup header and the chat prompt — the built-in Default provider is ready with no API key.</p>
               </div>
             </div>
             <div class="qs-step">
@@ -102,7 +105,7 @@
               <div class="qs-body">
                 <h3>Go further</h3>
                 <div class="code-block"><code>/help</code><button class="copy-btn" data-copy="/help" aria-label="Copy command"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span class="copy-label">Copy</span></button></div>
-                <p class="qs-note">Enable project tools with <code>/agent</code>, AI + computer control with <code>/assist</code>, or manage keys with <code>/apikey</code>.</p>
+                <p class="qs-note">Workspace-aware coding with <code>/codemode on</code>, AI + computer control with <code>/assist</code>, your own AI providers with <code>/provider</code>, and keys with <code>/apikey</code>.</p>
               </div>
             </div>
           </div>
@@ -111,18 +114,23 @@
             <table class="cmd-table">
               <tbody>
                 <tr><td><code>/help</code></td><td>Show available commands</td></tr>
-                <tr><td><code>/provider</code></td><td>Switch provider: OpenRouter, FreeModel Claude, FreeModel Codex, AeroLink, Ollama</td></tr>
-                <tr><td><code>/apikey</code></td><td>View, replace, remove, or validate the active key</td></tr>
-                <tr><td><code>/model</code></td><td>Browse the live model list ('auto' = FreeModel auto-select)</td></tr>
-                <tr><td><code>/config</code></td><td>Show configuration — every provider's key and model</td></tr>
-                <tr><td><code>/settings</code></td><td>Change a setting: username, stream, ollama_host, max_tokens</td></tr>
-                <tr><td><code>/doctor</code></td><td>Diagnose config, network, and provider health</td></tr>
-                <tr><td><code>/agent</code></td><td>Toggle agent mode — the AI can read, edit, search, and run commands</td></tr>
+                <tr><td><code>/provider</code></td><td>Switch provider: Default, OpenRouter, FreeModel Claude, FreeModel Codex, AeroLink, Ollama</td></tr>
+                <tr><td><code>/apikey</code></td><td>View, replace, remove, or validate the active provider's key</td></tr>
+                <tr><td><code>/model</code></td><td>Browse the provider's live model catalogue (Auto on FreeModel)</td></tr>
+                <tr><td><code>/mode</code></td><td>Show or switch the mode: chat / assist / code / agent</td></tr>
+                <tr><td><code>/chat</code></td><td>Switch to plain Chat Mode</td></tr>
+                <tr><td><code>/codemode</code></td><td>Workspace-aware Code Mode (on / off / status)</td></tr>
                 <tr><td><code>/assist</code></td><td>Enable Assist Mode: unified AI + computer control</td></tr>
-                <tr><td><code>/permission</code></td><td>Set the agent permission mode: read_only, workspace, full_access</td></tr>
-                <tr><td><code>/tools</code></td><td>List the tools available in agent mode</td></tr>
+                <tr><td><code>/permission</code></td><td>View or set the permission mode (alias /permissions)</td></tr>
+                <tr><td><code>/settings</code></td><td>Open interactive settings (or /settings <name> <value>)</td></tr>
+                <tr><td><code>/doctor</code></td><td>Diagnose config, network, and provider health</td></tr>
+                <tr><td><code>/computer</code></td><td>Show Computer Engine status and desktop permissions</td></tr>
+                <tr><td><code>/tools</code></td><td>List the tools available in Assist Mode</td></tr>
                 <tr><td><code>/index</code></td><td>Show a compact tree of the current project</td></tr>
+                <tr><td><code>/files</code></td><td>Search project files</td></tr>
                 <tr><td><code>/history</code></td><td>List saved conversation sessions</td></tr>
+                <tr><td><code>/theme</code></td><td>Pick a colour theme (live preview)</td></tr>
+                <tr><td><code>/shortcuts</code></td><td>Show keyboard shortcuts</td></tr>
                 <tr><td><code>/reset</code></td><td>Forget the current conversation</td></tr>
                 <tr><td><code>/clear</code></td><td>Clear the screen</td></tr>
                 <tr><td><code>/about</code></td><td>About Seed Code</td></tr>
@@ -138,7 +146,7 @@
 
     <section class="section-tight">
       <div class="container container-narrow">
-        <div class="callout reveal"><strong>Verify:</strong> run <code>seedcode --version</code> — expected output <code>seedcode v5.0.2</code>. Something off? <code>/doctor</code> checks everything in one pass.</div>
+        <div class="callout reveal"><strong>Verify:</strong> run <code>seedcode --version</code> — expected output <code>Seed Code CLI 6.2.5</code>. Something off? <code>/doctor</code> checks everything in one pass.</div>
       </div>
     </section>
   </main>
@@ -151,9 +159,8 @@
           Seed&nbsp;Code&nbsp;<span class="logo-cli">CLI</span>
         </a>
         <p class="footer-tag">The beautiful AI coding assistant for your terminal. Fast, elegant, and built for developers.</p>
-        <p class="footer-credit">Designed &amp; Developed by <strong>Eagox Studio</strong><br>
-          Created by <a href="https://alshahriarsayon.vercel.app/" target="_blank" rel="noopener">Al Shahriar Sowan</a> · <a href="https://github.com/Alshahriar-07/seedcode-cli" target="_blank" rel="noopener">GitHub</a><br>
-          Vibe coded with GPT-5.5 + Claude Opus 4.8</p>
+        <p class="footer-credit">Built by <a href="https://alshahriarsayon.vercel.app/" target="_blank" rel="noopener"><strong>Al Shahriar Sayon</strong></a> · Part of the <a href="https://eagoxstudio.vercel.app/" target="_blank" rel="noopener">Eagox Studio</a> ecosystem<br>
+          <a href="https://github.com/Alshahriar-07/seedcode-cli" target="_blank" rel="noopener">GitHub</a> · <a href="https://github.com/Alshahriar-07/seedcode-cli/releases/tag/v6.2.5" target="_blank" rel="noopener">Releases</a> · v6.2.5</p>
       </div>
       <nav aria-label="Product">
         <h4>Product</h4>
@@ -166,7 +173,8 @@
         <h4>Resources</h4>
         <a href="docs.html">Documentation</a>
         <a href="quickstart.html">Quick Start</a>
-        <a href="https://seedcode-chat.vercel.app/" target="_blank" rel="noopener">Seed Code Chat <span aria-hidden="true">→</span></a>
+        <a href="https://seedcode-chat.vercel.app/" target="_blank" rel="noopener">Seed Code Chat Web <span aria-hidden="true">→</span></a>
+        <a href="https://seedcode-app.vercel.app/" target="_blank" rel="noopener">Seed Code Chat Android <span aria-hidden="true">→</span></a>
         <a href="faq.html">FAQ</a>
         <a href="support.html">Support</a>
       </nav>
@@ -180,7 +188,7 @@
     </div>
     <div class="container footer-bottom">
       <p>© 2026 Eagox Studio · Seed Code CLI. All rights reserved.</p>
-      <p>Crafted for the terminal · v5.0.2 · <a href="https://github.com/Alshahriar-07/seedcode-cli/blob/main/LICENSE" rel="noopener">MIT License</a></p>
+      <p>Crafted for the terminal · <a href="https://github.com/Alshahriar-07/seedcode-cli/releases/tag/v6.2.5" rel="noopener">v6.2.5</a> · <a href="https://github.com/Alshahriar-07/seedcode-cli/blob/main/LICENSE" rel="noopener">MIT License</a></p>
     </div>
   </footer>
 
